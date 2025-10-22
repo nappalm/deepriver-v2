@@ -2,7 +2,7 @@ import { Heading, Stack } from "@chakra-ui/react";
 import DeleteAccountForm from "../components/delete-account/DeleteAccountForm";
 import { useDeleteAccount } from "../hooks/useAccount";
 import { useEffect } from "react";
-import { useSignOut } from "@/shared";
+import { useSignOut } from "@/shared/hooks";
 
 export default function DeleteAccount() {
   const { mutate: signOut } = useSignOut();

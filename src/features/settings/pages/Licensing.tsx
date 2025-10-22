@@ -1,4 +1,3 @@
-import { useAuthenticatedUser } from "@/shared";
 import {
   Alert,
   AlertIcon,
@@ -19,6 +18,7 @@ import {
   useStripeSubscriptionCancellation,
 } from "../hooks/useStripe";
 import { OnUpgrade } from "../utils/types";
+import { useAuthenticatedUser } from "@/shared/hooks";
 
 export default function LicensingPage() {
   const { profile } = useAuthenticatedUser();

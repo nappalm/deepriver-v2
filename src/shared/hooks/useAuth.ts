@@ -1,33 +1,51 @@
-import { useMutation } from "@tanstack/react-query";
-import {
-  recoveryPassword,
-  signInWithEmail,
-  signInWithOAuth,
-  signOut,
-  signUpWithEmail,
-} from "../services/auth.supabase";
+// Fake auth hooks - replace with real authentication solution
 
-export const useSignInWithEmail = () =>
-  useMutation({
-    mutationFn: signInWithEmail,
-  });
+export function useSignOut() {
+  return {
+    mutate: () => {
+      console.log("Sign out triggered (fake)");
+    },
+    isPending: false,
+  };
+}
 
-export const useRecoveryPassword = () =>
-  useMutation({
-    mutationFn: recoveryPassword,
-  });
+export function useSignInWithEmail() {
+  return {
+    mutate: (credentials: { email: string; password: string }) => {
+      console.log("Sign in with email triggered (fake)", credentials);
+    },
+    isPending: false,
+    isError: false,
+    error: null,
+  };
+}
 
-export const useSignUpWithEmail = () =>
-  useMutation({
-    mutationFn: signUpWithEmail,
-  });
+export function useSignInWithOAuth() {
+  return {
+    mutate: (provider: string) => {
+      console.log("Sign in with OAuth triggered (fake)", provider);
+    },
+    isPending: false,
+  };
+}
 
-export const useSignInWithOAuth = () =>
-  useMutation({
-    mutationFn: signInWithOAuth,
-  });
+export function useSignUpWithEmail() {
+  return {
+    mutate: (credentials: { email: string; password: string }) => {
+      console.log("Sign up with email triggered (fake)", credentials);
+    },
+    isPending: false,
+    isError: false,
+    error: null,
+  };
+}
 
-export const useSignOut = () =>
-  useMutation({
-    mutationFn: signOut,
-  });
+export function useRecoveryPassword() {
+  return {
+    mutate: (email: string) => {
+      console.log("Password recovery triggered (fake)", email);
+    },
+    isPending: false,
+    isSuccess: false,
+  };
+}

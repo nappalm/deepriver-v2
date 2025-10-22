@@ -1,6 +1,6 @@
-import { useAuthenticatedUser } from "@/shared";
 import { Card, CardBody, HStack, Stack, Tag, Text } from "@chakra-ui/react";
 import { IconBrandGoogleFilled, IconMailFilled } from "@tabler/icons-react";
+import { useAuthenticatedUser } from "@/shared/hooks";
 
 export default function Authentication() {
   const { user } = useAuthenticatedUser();

@@ -1,8 +1,8 @@
-import { useAuthenticatedUser } from "@/shared";
 import { Alert, AlertIcon, Heading, Stack } from "@chakra-ui/react";
 import ProfileForm from "../components/profile/ProfileForm";
 import { useUpdateEmail, useUpdateProfile } from "../hooks/useAccount";
 import { OnSubmitProfile } from "../utils/types";
+import { useAuthenticatedUser } from "@/shared/hooks";
 
 export default function MyProfile() {
   const { user } = useAuthenticatedUser();

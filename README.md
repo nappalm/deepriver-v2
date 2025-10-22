@@ -21,7 +21,6 @@ scaling of Single Page Applications (SPAs):
   React applications
 - [Axios](https://axios-http.com/): promise-based HTTP client for the browser
   and node.js
-- [Supabase](https://supabase.com/): open-source Firebase alternative
 
 ## 2. Directory Organization
 

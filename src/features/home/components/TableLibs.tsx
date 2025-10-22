@@ -58,12 +58,6 @@ const technologies = [
     url: "https://github.com/jquense/yup",
   },
   {
-    name: "Supabase",
-    description:
-      "An open source Firebase alternative for building secure and scalable backends.",
-    url: "https://supabase.io/",
-  },
-  {
     name: "Axios",
     description: "A promise-based HTTP client for the browser and Node.js.",
     url: "https://axios-http.com/",
