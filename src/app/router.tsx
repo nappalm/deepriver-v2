@@ -1,3 +1,4 @@
+import { ANALYSIS_PATHS, analysisRoutes } from "@/features/analysis";
 import { HOME_PATHS, homeRoutes } from "@/features/home";
 import { SETTINGS_PATHS, settingsRoutes } from "@/features/settings";
 
@@ -20,6 +21,10 @@ const appRoutes = [
       {
         path: HOME_PATHS.base,
         children: homeRoutes,
+      },
+      {
+        path: ANALYSIS_PATHS.base,
+        children: analysisRoutes,
       },
       {
         path: "*",

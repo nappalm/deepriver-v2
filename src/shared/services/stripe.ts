@@ -10,7 +10,9 @@ export const stripeCreateSubscription = async (data: any): Promise<any> => {
   return Promise.resolve({});
 };
 
-export const stripeDownloadInvoice = async (invoiceId: string): Promise<any> => {
+export const stripeDownloadInvoice = async (
+  invoiceId: string,
+): Promise<any> => {
   console.log("Stripe download invoice service called (fake)", invoiceId);
   return Promise.resolve({});
 };
@@ -26,7 +28,7 @@ export const stripeProducts = async (): Promise<any[]> => {
 };
 
 export const stripeRemovePaymentMethod = async (
-  methodId: string
+  methodId: string,
 ): Promise<void> => {
   console.log("Stripe remove payment method service called (fake)", methodId);
   return Promise.resolve();

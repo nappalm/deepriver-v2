@@ -27,11 +27,7 @@ export default function UserMenu() {
 
   return (
     <HStack>
-      <Box
-        bg="transparent"
-        p="3px"
-        borderRadius="full"
-      >
+      <Box bg="transparent" p="3px" borderRadius="full">
         <Avatar
           src={user?.user_metadata?.avatar_url}
           size="xs"

@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Heading,
-  HStack,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Avatar, Box, Heading, HStack, Stack, Text } from "@chakra-ui/react";
 import { useAuthenticatedUser } from "@/shared/hooks";
 
 export default function UserInformation() {
@@ -16,11 +9,7 @@ export default function UserInformation() {
 
   return (
     <HStack gap={5}>
-      <Box
-        bg="transparent"
-        p="3px"
-        borderRadius="2xl"
-      >
+      <Box bg="transparent" p="3px" borderRadius="2xl">
         <Avatar size="md" src={user?.user_metadata?.avatar_url} />
       </Box>
       <Stack gap={0}>

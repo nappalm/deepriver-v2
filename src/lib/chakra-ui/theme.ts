@@ -17,8 +17,8 @@ const styles = {
 };
 
 const fonts = {
-  heading: "Inter",
-  body: "Inter",
+  heading: "Manrope",
+  body: "Manrope",
 };
 
 const fontSizes = {
