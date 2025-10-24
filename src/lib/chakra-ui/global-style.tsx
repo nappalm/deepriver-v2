@@ -89,6 +89,31 @@ export default function GlobalStyle() {
             opacity: 0;
           }
         }
+
+        /* Scrollbar minimalista */
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: red;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: red;
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: #a0aec0;
+        }
+
+        /* Firefox */
+        * {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+        }
       `}
     />
   );

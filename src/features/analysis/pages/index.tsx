@@ -1,0 +1,413 @@
+import { Grid, Box } from "@chakra-ui/react";
+import Topics from "../components/Topics";
+import News from "../components/News";
+import Metrics from "../components/Metrics";
+
+export default function Analysis() {
+  // Datos de ejemplo para Topics
+  const topicsData = [
+    {
+      id: "1",
+      image:
+        "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=200&fit=crop",
+      title: "Reforma Energética",
+      description:
+        "Análisis de las últimas propuestas de reforma en el sector energético",
+      newsCount: 24,
+      type: "Gobierno",
+    },
+    {
+      id: "2",
+      image:
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=200&fit=crop",
+      title: "Desarrollo Urbano",
+      description:
+        "Proyectos de infraestructura y desarrollo urbano en la ciudad",
+      newsCount: 15,
+      type: "Infraestructura",
+    },
+    {
+      id: "3",
+      image:
+        "https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?w=400&h=200&fit=crop",
+      title: "Política Educativa",
+      description:
+        "Nuevos programas de educación superior y becas para estudiantes",
+      newsCount: 32,
+      type: "Educación",
+    },
+    {
+      id: "4",
+      image:
+        "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=200&fit=crop",
+      title: "Sistema de Salud",
+      description:
+        "Inversión en hospitales y mejoras en atención médica pública",
+      newsCount: 28,
+      type: "Salud",
+    },
+    {
+      id: "5",
+      image:
+        "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=200&fit=crop",
+      title: "Medio Ambiente",
+      description:
+        "Estrategias para reducir la contaminación y proteger ecosistemas",
+      newsCount: 19,
+      type: "Ecología",
+    },
+    {
+      id: "6",
+      image:
+        "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=200&fit=crop",
+      title: "Innovación Digital",
+      description:
+        "Transformación digital del gobierno y servicios públicos en línea",
+      newsCount: 41,
+      type: "Tecnología",
+    },
+    {
+      id: "7",
+      image:
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=200&fit=crop",
+      title: "Transporte Público",
+      description: "Modernización del sistema de transporte metropolitano",
+      newsCount: 22,
+      type: "Infraestructura",
+    },
+    {
+      id: "8",
+      image:
+        "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=200&fit=crop",
+      title: "Reforma Fiscal",
+      description:
+        "Cambios en el sistema tributario y nuevas políticas de recaudación",
+      newsCount: 36,
+      type: "Economía",
+    },
+    {
+      id: "9",
+      image:
+        "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=200&fit=crop",
+      title: "Seguridad Ciudadana",
+      description: "Estrategias para mejorar la seguridad en zonas urbanas",
+      newsCount: 27,
+      type: "Seguridad",
+    },
+    {
+      id: "10",
+      image:
+        "https://images.unsplash.com/photo-1560264280-88b68371db39?w=400&h=200&fit=crop",
+      title: "Cultura y Arte",
+      description: "Apoyo a proyectos culturales y preservación del patrimonio",
+      newsCount: 18,
+      type: "Cultura",
+    },
+    {
+      id: "11",
+      image:
+        "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=200&fit=crop",
+      title: "Empleo y Trabajo",
+      description: "Programas de generación de empleo y capacitación laboral",
+      newsCount: 33,
+      type: "Economía",
+    },
+    {
+      id: "12",
+      image:
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=200&fit=crop",
+      title: "Telecomunicaciones",
+      description:
+        "Expansión de infraestructura de internet y conectividad rural",
+      newsCount: 25,
+      type: "Tecnología",
+    },
+    {
+      id: "13",
+      image:
+        "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=200&fit=crop",
+      title: "Recursos Naturales",
+      description: "Gestión sostenible de recursos hídricos y forestales",
+      newsCount: 21,
+      type: "Ecología",
+    },
+    {
+      id: "14",
+      image:
+        "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?w=400&h=200&fit=crop",
+      title: "Vivienda Social",
+      description: "Programas de construcción de viviendas accesibles",
+      newsCount: 29,
+      type: "Social",
+    },
+    {
+      id: "15",
+      image:
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop",
+      title: "Comercio Internacional",
+      description: "Nuevos acuerdos comerciales y apertura de mercados",
+      newsCount: 31,
+      type: "Economía",
+    },
+    {
+      id: "16",
+      image:
+        "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=200&fit=crop",
+      title: "Investigación Científica",
+      description:
+        "Inversión en centros de investigación y desarrollo tecnológico",
+      newsCount: 16,
+      type: "Ciencia",
+    },
+    {
+      id: "17",
+      image:
+        "https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=400&h=200&fit=crop",
+      title: "Turismo Sostenible",
+      description: "Promoción del turismo con enfoque en sustentabilidad",
+      newsCount: 23,
+      type: "Turismo",
+    },
+    {
+      id: "18",
+      image:
+        "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=200&fit=crop",
+      title: "Agricultura Moderna",
+      description: "Tecnificación del campo y apoyo a pequeños productores",
+      newsCount: 26,
+      type: "Agricultura",
+    },
+    {
+      id: "19",
+      image:
+        "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&h=200&fit=crop",
+      title: "Derechos Humanos",
+      description: "Políticas de inclusión y protección de grupos vulnerables",
+      newsCount: 20,
+      type: "Social",
+    },
+    {
+      id: "20",
+      image:
+        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=200&fit=crop",
+      title: "Administración Pública",
+      description: "Modernización de procesos administrativos gubernamentales",
+      newsCount: 17,
+      type: "Gobierno",
+    },
+  ];
+
+  // Datos de ejemplo para News
+  const newsData = [
+    {
+      id: "1",
+      image:
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop",
+      title: "Nueva inversión en tecnología",
+      description:
+        "Gobierno anuncia plan de inversión en sectores tecnológicos",
+      newsCount: 8,
+      type: "Tecnología",
+    },
+    {
+      id: "2",
+      image:
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop",
+      title: "Presupuesto 2025",
+      description:
+        "Detalles del presupuesto asignado para el próximo año fiscal",
+      newsCount: 12,
+      type: "Economía",
+    },
+    {
+      id: "3",
+      image:
+        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop",
+      title: "Reforma educativa aprobada",
+      description: "Congreso aprueba cambios en el sistema educativo nacional",
+      newsCount: 15,
+      type: "Educación",
+    },
+    {
+      id: "4",
+      image:
+        "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400&h=200&fit=crop",
+      title: "Nuevo hospital inaugurado",
+      description: "Abre sus puertas hospital de especialidades en zona norte",
+      newsCount: 6,
+      type: "Salud",
+    },
+    {
+      id: "5",
+      image:
+        "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=200&fit=crop",
+      title: "Energías renovables en auge",
+      description: "Aumenta inversión en paneles solares y eólicos",
+      newsCount: 10,
+      type: "Ecología",
+    },
+    {
+      id: "6",
+      image:
+        "https://images.unsplash.com/photo-1569163139394-de4798aa62b6?w=400&h=200&fit=crop",
+      title: "Metro amplía cobertura",
+      description: "Nuevas estaciones conectarán zonas periféricas",
+      newsCount: 9,
+      type: "Infraestructura",
+    },
+    {
+      id: "7",
+      image:
+        "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=200&fit=crop",
+      title: "Inflación baja 0.3%",
+      description: "Datos económicos muestran tendencia positiva",
+      newsCount: 14,
+      type: "Economía",
+    },
+    {
+      id: "8",
+      image:
+        "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=400&h=200&fit=crop",
+      title: "Seguridad reforzada",
+      description: "Despliegan nueva estrategia de vigilancia urbana",
+      newsCount: 11,
+      type: "Seguridad",
+    },
+    {
+      id: "9",
+      image:
+        "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=200&fit=crop",
+      title: "Festival cultural anunciado",
+      description: "Evento reunirá artistas nacionales e internacionales",
+      newsCount: 5,
+      type: "Cultura",
+    },
+    {
+      id: "10",
+      image:
+        "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=400&h=200&fit=crop",
+      title: "Programa de empleo joven",
+      description: "Lanzan iniciativa para capacitar a jóvenes",
+      newsCount: 13,
+      type: "Social",
+    },
+    {
+      id: "11",
+      image:
+        "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=200&fit=crop",
+      title: "5G llega a más ciudades",
+      description: "Expansión de red de quinta generación continúa",
+      newsCount: 7,
+      type: "Tecnología",
+    },
+    {
+      id: "12",
+      image:
+        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=200&fit=crop",
+      title: "Reforestación masiva",
+      description: "Plantan 100 mil árboles en reserva ecológica",
+      newsCount: 8,
+      type: "Ecología",
+    },
+    {
+      id: "13",
+      image:
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=200&fit=crop",
+      title: "Créditos para vivienda",
+      description: "Bancos ofrecen tasas preferenciales para hogares",
+      newsCount: 10,
+      type: "Social",
+    },
+    {
+      id: "14",
+      image:
+        "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=400&h=200&fit=crop",
+      title: "Exportaciones crecen 15%",
+      description: "Sector manufacturero reporta incremento",
+      newsCount: 12,
+      type: "Economía",
+    },
+    {
+      id: "15",
+      image:
+        "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&h=200&fit=crop",
+      title: "Centro de investigación abre",
+      description: "Nuevo laboratorio de biotecnología inicia operaciones",
+      newsCount: 6,
+      type: "Ciencia",
+    },
+    {
+      id: "16",
+      image:
+        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=200&fit=crop",
+      title: "Turismo aumenta 20%",
+      description: "Destinos nacionales reciben más visitantes",
+      newsCount: 9,
+      type: "Turismo",
+    },
+    {
+      id: "17",
+      image:
+        "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=200&fit=crop",
+      title: "Subsidios para agricultores",
+      description: "Apoyo económico llega a pequeños productores",
+      newsCount: 11,
+      type: "Agricultura",
+    },
+    {
+      id: "18",
+      image:
+        "https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=400&h=200&fit=crop",
+      title: "Programa de inclusión",
+      description: "Implementan acciones para grupos vulnerables",
+      newsCount: 7,
+      type: "Social",
+    },
+    {
+      id: "19",
+      image:
+        "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?w=400&h=200&fit=crop",
+      title: "Trámites ahora digitales",
+      description: "Gobierno digitaliza 50 servicios públicos",
+      newsCount: 14,
+      type: "Gobierno",
+    },
+    {
+      id: "20",
+      image:
+        "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=400&h=200&fit=crop",
+      title: "Inversión extranjera sube",
+      description: "País atrae capitales por estabilidad económica",
+      newsCount: 13,
+      type: "Economía",
+    },
+  ];
+
+  // Datos de ejemplo para Metrics
+  const metricsData = {
+    documents: 1250,
+    likes: 3480,
+    authors: 45,
+    valuationMXN: 15000000,
+  };
+
+  return (
+    <Box p={6} height="100vh" overflow="hidden">
+      <Grid
+        templateColumns={{ base: "1fr", lg: "2fr 1.5fr 1fr" }}
+        gap={6}
+        height="calc(100vh - 100px)"
+      >
+        <Box overflowY="auto" overflowX="hidden" pr={2} height="100%">
+          <Topics topics={topicsData} />
+        </Box>
+        <Box overflowY="auto" height="100%" pr={2}>
+          <News news={newsData} />
+        </Box>
+        <Box overflowY="auto" height="100%">
+          <Metrics data={metricsData} />
+        </Box>
+      </Grid>
+    </Box>
+  );
+}
