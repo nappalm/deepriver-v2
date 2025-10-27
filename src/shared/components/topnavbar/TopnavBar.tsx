@@ -2,6 +2,7 @@ import {
   Button,
   ButtonGroup,
   HStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import {
   IconCalendarFilled,
@@ -21,14 +22,21 @@ export default function Topnavbar() {
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 
+  const bg = useColorModeValue("#ffffff", "#0A0A0A");
+  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
+  const activeColor = useColorModeValue("gray.900", "white");
+  const inactiveColor = useColorModeValue("gray.600", "whiteAlpha.700");
+  const activeBg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const hoverBg = useColorModeValue("gray.100", "whiteAlpha.200");
+
   return (
     <HStack
       w="full"
       justifyContent="space-between"
       p={3}
-      bg="#0A0A0A"
+      bg={bg}
       borderBottom="1px solid"
-      borderColor="whiteAlpha.200"
+      borderColor={borderColor}
       backdropFilter="blur(10px)"
       position="sticky"
       top={0}
@@ -45,11 +53,11 @@ export default function Topnavbar() {
             size="sm"
             leftIcon={<IconArticleFilled size={16} />}
             variant="ghost"
-            color={isActive("/feed") ? "white" : "whiteAlpha.700"}
-            bg={isActive("/feed") ? "whiteAlpha.200" : "transparent"}
+            color={isActive("/feed") ? activeColor : inactiveColor}
+            bg={isActive("/feed") ? activeBg : "transparent"}
             _hover={{
-              bg: "whiteAlpha.200",
-              color: "white",
+              bg: hoverBg,
+              color: activeColor,
             }}
           >
             Feed
@@ -60,11 +68,11 @@ export default function Topnavbar() {
             size="sm"
             leftIcon={<IconTimelineEventFilled size={16} />}
             variant="ghost"
-            color={isActive("/events") ? "white" : "whiteAlpha.700"}
-            bg={isActive("/events") ? "whiteAlpha.200" : "transparent"}
+            color={isActive("/events") ? activeColor : inactiveColor}
+            bg={isActive("/events") ? activeBg : "transparent"}
             _hover={{
-              bg: "whiteAlpha.200",
-              color: "white",
+              bg: hoverBg,
+              color: activeColor,
             }}
           >
             Events
@@ -75,11 +83,11 @@ export default function Topnavbar() {
             size="sm"
             leftIcon={<IconChartPieFilled size={16} />}
             variant="ghost"
-            color={isActive("/analysis") ? "white" : "whiteAlpha.700"}
-            bg={isActive("/analysis") ? "whiteAlpha.200" : "transparent"}
+            color={isActive("/analysis") ? activeColor : inactiveColor}
+            bg={isActive("/analysis") ? activeBg : "transparent"}
             _hover={{
-              bg: "whiteAlpha.200",
-              color: "white",
+              bg: hoverBg,
+              color: activeColor,
             }}
           >
             Analysis
@@ -90,11 +98,11 @@ export default function Topnavbar() {
             size="sm"
             leftIcon={<IconChartAreaFilled size={16} />}
             variant="ghost"
-            color={isActive("/reports") ? "white" : "whiteAlpha.700"}
-            bg={isActive("/reports") ? "whiteAlpha.200" : "transparent"}
+            color={isActive("/reports") ? activeColor : inactiveColor}
+            bg={isActive("/reports") ? activeBg : "transparent"}
             _hover={{
-              bg: "whiteAlpha.200",
-              color: "white",
+              bg: hoverBg,
+              color: activeColor,
             }}
           >
             Reports
@@ -105,11 +113,11 @@ export default function Topnavbar() {
             size="sm"
             leftIcon={<IconFolderFilled size={16} />}
             variant="ghost"
-            color={isActive("/collections") ? "white" : "whiteAlpha.700"}
-            bg={isActive("/collections") ? "whiteAlpha.200" : "transparent"}
+            color={isActive("/collections") ? activeColor : inactiveColor}
+            bg={isActive("/collections") ? activeBg : "transparent"}
             _hover={{
-              bg: "whiteAlpha.200",
-              color: "white",
+              bg: hoverBg,
+              color: activeColor,
             }}
           >
             Collections

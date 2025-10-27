@@ -9,6 +9,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import {
   IconChevronDown,
@@ -25,14 +26,27 @@ export default function UserMenu() {
 
   const userName = profile?.name ?? user?.user_metadata?.name;
 
+  const avatarBg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const avatarBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
+  const buttonColor = useColorModeValue("gray.600", "whiteAlpha.700");
+  const buttonHoverBg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const buttonHoverColor = useColorModeValue("gray.900", "white");
+  const buttonActiveBg = useColorModeValue("gray.200", "whiteAlpha.300");
+  const menuBg = useColorModeValue("#ffffff", "#0A0A0A");
+  const menuBorderColor = useColorModeValue("gray.200", "whiteAlpha.200");
+  const menuItemBg = useColorModeValue("#ffffff", "#0A0A0A");
+  const menuItemColor = useColorModeValue("gray.600", "whiteAlpha.700");
+  const menuItemHoverBg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const menuItemHoverColor = useColorModeValue("gray.900", "white");
+
   return (
     <HStack>
       <Box
-        bg="whiteAlpha.200"
+        bg={avatarBg}
         p="3px"
         borderRadius="full"
         border="1px solid"
-        borderColor="whiteAlpha.300"
+        borderColor={avatarBorderColor}
         backdropFilter="blur(10px)"
       >
         <Avatar
@@ -40,7 +54,7 @@ export default function UserMenu() {
           size="xs"
           name={userName}
           icon={<IconUserFilled size={18} />}
-          bg="whiteAlpha.200"
+          bg={avatarBg}
         />
       </Box>
       <Menu>
@@ -49,31 +63,31 @@ export default function UserMenu() {
           size="sm"
           rightIcon={<IconChevronDown size={16} />}
           variant="ghost"
-          color="whiteAlpha.700"
+          color={buttonColor}
           _hover={{
-            bg: "whiteAlpha.200",
-            color: "white",
+            bg: buttonHoverBg,
+            color: buttonHoverColor,
           }}
           _active={{
-            bg: "whiteAlpha.300",
+            bg: buttonActiveBg,
           }}
         >
           {userName ?? user?.email}
         </MenuButton>
         <MenuList
-          bg="#000"
+          bg={menuBg}
           border="1px solid"
-          borderColor="whiteAlpha.200"
+          borderColor={menuBorderColor}
           backdropFilter="blur(10px)"
         >
           <MenuItem
             onClick={() => handleNavigate(SETTINGS_PATHS.myProfile)}
             icon={<IconSettings size={18} />}
-            bg="#000"
-            color="whiteAlpha.700"
+            bg={menuItemBg}
+            color={menuItemColor}
             _hover={{
-              bg: "whiteAlpha.200",
-              color: "white",
+              bg: menuItemHoverBg,
+              color: menuItemHoverColor,
             }}
           >
             Profile settings

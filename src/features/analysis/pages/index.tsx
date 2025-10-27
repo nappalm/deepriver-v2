@@ -4,6 +4,7 @@ import News from "../components/News";
 import Metrics from "../components/Metrics";
 import Map from "../components/Map";
 import Chart from "../components/Chart";
+import Filters from "../components/Filters";
 
 export default function Analysis() {
   // Datos de ejemplo para Topics
@@ -210,6 +211,7 @@ export default function Analysis() {
         "Gobierno anuncia plan de inversión en sectores tecnológicos",
       newsCount: 8,
       type: "Tecnología",
+      date: "15 Enero, 14:30",
     },
     {
       id: "2",
@@ -220,6 +222,7 @@ export default function Analysis() {
         "Detalles del presupuesto asignado para el próximo año fiscal",
       newsCount: 12,
       type: "Economía",
+      date: "14 Enero, 11:15",
     },
     {
       id: "3",
@@ -229,6 +232,7 @@ export default function Analysis() {
       description: "Congreso aprueba cambios en el sistema educativo nacional",
       newsCount: 15,
       type: "Educación",
+      date: "13 Enero, 09:45",
     },
     {
       id: "4",
@@ -238,6 +242,7 @@ export default function Analysis() {
       description: "Abre sus puertas hospital de especialidades en zona norte",
       newsCount: 6,
       type: "Salud",
+      date: "12 Enero, 16:20",
     },
     {
       id: "5",
@@ -247,6 +252,7 @@ export default function Analysis() {
       description: "Aumenta inversión en paneles solares y eólicos",
       newsCount: 10,
       type: "Ecología",
+      date: "11 Enero, 13:00",
     },
     {
       id: "6",
@@ -256,6 +262,7 @@ export default function Analysis() {
       description: "Nuevas estaciones conectarán zonas periféricas",
       newsCount: 9,
       type: "Infraestructura",
+      date: "10 Enero, 10:30",
     },
     {
       id: "7",
@@ -265,6 +272,7 @@ export default function Analysis() {
       description: "Datos económicos muestran tendencia positiva",
       newsCount: 14,
       type: "Economía",
+      date: "9 Enero, 15:45",
     },
     {
       id: "8",
@@ -274,6 +282,7 @@ export default function Analysis() {
       description: "Despliegan nueva estrategia de vigilancia urbana",
       newsCount: 11,
       type: "Seguridad",
+      date: "8 Enero, 08:15",
     },
     {
       id: "9",
@@ -283,6 +292,7 @@ export default function Analysis() {
       description: "Evento reunirá artistas nacionales e internacionales",
       newsCount: 5,
       type: "Cultura",
+      date: "7 Enero, 12:00",
     },
     {
       id: "10",
@@ -292,6 +302,7 @@ export default function Analysis() {
       description: "Lanzan iniciativa para capacitar a jóvenes",
       newsCount: 13,
       type: "Social",
+      date: "6 Enero, 17:30",
     },
     {
       id: "11",
@@ -301,6 +312,7 @@ export default function Analysis() {
       description: "Expansión de red de quinta generación continúa",
       newsCount: 7,
       type: "Tecnología",
+      date: "5 Enero, 14:00",
     },
     {
       id: "12",
@@ -310,6 +322,7 @@ export default function Analysis() {
       description: "Plantan 100 mil árboles en reserva ecológica",
       newsCount: 8,
       type: "Ecología",
+      date: "4 Enero, 11:45",
     },
     {
       id: "13",
@@ -319,6 +332,7 @@ export default function Analysis() {
       description: "Bancos ofrecen tasas preferenciales para hogares",
       newsCount: 10,
       type: "Social",
+      date: "3 Enero, 09:30",
     },
     {
       id: "14",
@@ -328,6 +342,7 @@ export default function Analysis() {
       description: "Sector manufacturero reporta incremento",
       newsCount: 12,
       type: "Economía",
+      date: "2 Enero, 16:15",
     },
     {
       id: "15",
@@ -337,6 +352,7 @@ export default function Analysis() {
       description: "Nuevo laboratorio de biotecnología inicia operaciones",
       newsCount: 6,
       type: "Ciencia",
+      date: "1 Enero, 13:20",
     },
     {
       id: "16",
@@ -346,6 +362,7 @@ export default function Analysis() {
       description: "Destinos nacionales reciben más visitantes",
       newsCount: 9,
       type: "Turismo",
+      date: "31 Diciembre, 10:00",
     },
     {
       id: "17",
@@ -355,6 +372,7 @@ export default function Analysis() {
       description: "Apoyo económico llega a pequeños productores",
       newsCount: 11,
       type: "Agricultura",
+      date: "30 Diciembre, 15:00",
     },
     {
       id: "18",
@@ -364,6 +382,7 @@ export default function Analysis() {
       description: "Implementan acciones para grupos vulnerables",
       newsCount: 7,
       type: "Social",
+      date: "29 Diciembre, 12:45",
     },
     {
       id: "19",
@@ -373,6 +392,7 @@ export default function Analysis() {
       description: "Gobierno digitaliza 50 servicios públicos",
       newsCount: 14,
       type: "Gobierno",
+      date: "28 Diciembre, 08:30",
     },
     {
       id: "20",
@@ -382,6 +402,7 @@ export default function Analysis() {
       description: "País atrae capitales por estabilidad económica",
       newsCount: 13,
       type: "Economía",
+      date: "27 Diciembre, 11:00",
     },
   ];
 
@@ -493,12 +514,20 @@ export default function Analysis() {
     { name: "21h", value: 35 },
   ];
 
+  const handleFiltersChange = (filters: any) => {
+    console.log("Filters changed:", filters);
+    // Aquí puedes implementar la lógica de filtrado
+  };
+
   return (
     <Box overflow="hidden">
+      <Box mb={6}>
+        <Filters onFiltersChange={handleFiltersChange} />
+      </Box>
       <Grid
         templateColumns={{ base: "1fr", lg: "2fr 1.5fr 1fr" }}
         gap={6}
-        height="calc(100vh - 100px)"
+        height="calc(100vh - 250px)"
       >
         <Box overflowY="auto" overflowX="hidden" pr={2} height="100%">
           <Topics topics={topicsData} />

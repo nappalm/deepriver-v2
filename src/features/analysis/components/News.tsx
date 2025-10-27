@@ -5,10 +5,13 @@ import {
   CardBody,
   Flex,
   Heading,
+  IconButton,
   Image,
   Text,
   VStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import { IconBookmarkFilled } from "@tabler/icons-react";
 import React from "react";
 
 interface NewsItem {
@@ -18,6 +21,7 @@ interface NewsItem {
   description: string;
   newsCount: number;
   type: string;
+  date?: string;
 }
 
 interface NewsProps {
@@ -30,10 +34,25 @@ const NewsCard: React.FC<{
   isFeatured?: boolean;
   index: number;
 }> = ({ item, isLarge = false, isFeatured = false, index }) => {
+  const bg = useColorModeValue("#ffffff", "#0A0A0A");
+  const textColor = useColorModeValue("gray.900", "white");
+  const descColor = useColorModeValue("gray.600", "whiteAlpha.700");
+  const metaColor = useColorModeValue("gray.500", "whiteAlpha.600");
+  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
+  const badgeBg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const badgeBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
+  const iconBg = useColorModeValue("gray.100", "whiteAlpha.200");
+  const iconBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
+  const iconHoverBg = useColorModeValue("gray.200", "whiteAlpha.300");
+  const gradientBg = useColorModeValue(
+    "linear(to-t, #ffffff, rgba(255,255,255,0.95), rgba(255,255,255,0.85), rgba(255,255,255,0.6), rgba(255,255,255,0.3), transparent)",
+    "linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)"
+  );
+
   return (
     <Card
-      bg="#0A0A0A"
-      color="white"
+      bg={bg}
+      color={textColor}
       overflow="hidden"
       position="relative"
       cursor="pointer"
@@ -44,10 +63,27 @@ const NewsCard: React.FC<{
       height="100%"
       role="group"
       border="1px solid"
-      borderColor="whiteAlpha.200"
+      borderColor={borderColor}
     >
       {isFeatured ? (
         <>
+          <IconButton
+            size="sm"
+            aria-label="Bookmark"
+            icon={<IconBookmarkFilled size={16} />}
+            position="absolute"
+            right={3}
+            top={3}
+            zIndex={3}
+            bg={iconBg}
+            backdropFilter="blur(10px)"
+            color={textColor}
+            border="1px solid"
+            borderColor={iconBorderColor}
+            _hover={{
+              bg: iconHoverBg,
+            }}
+          />
           <Box position="absolute" top={0} left={0} right={0} bottom={0}>
             <Image
               src={item.image}
@@ -67,65 +103,86 @@ const NewsCard: React.FC<{
               left={0}
               right={0}
               bottom={0}
-              bgGradient="linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)"
+              bgGradient={gradientBg}
             />
             <Badge
               position="absolute"
               top={3}
-              right={3}
-              bg="whiteAlpha.200"
+              left={3}
+              bg={badgeBg}
               backdropFilter="blur(10px)"
-              color="white"
+              color={textColor}
               fontSize="xs"
               px={3}
               py={1}
               border="1px solid"
-              borderColor="whiteAlpha.300"
+              borderColor={badgeBorderColor}
               zIndex={2}
             >
               {item.type}
             </Badge>
           </Box>
           <CardBody p={4} position="relative" zIndex={1} display="flex" flexDirection="column" justifyContent="flex-end" minHeight={isLarge ? "300px" : "250px"}>
-            <Heading size={isLarge ? "lg" : "md"} mb={2} color="white">
+            <Heading size={isLarge ? "lg" : "md"} mb={2} color={textColor}>
               {item.title}
             </Heading>
-            <Text color="whiteAlpha.700" fontSize="sm" mb={2} noOfLines={2}>
+            <Text color={descColor} fontSize="sm" mb={2} noOfLines={2}>
               {item.description}
             </Text>
-            <Text fontSize="xs" color="whiteAlpha.600" fontWeight="medium">
-              {item.newsCount} {item.newsCount === 1 ? "noticia" : "noticias"}
-            </Text>
+            {item.date && (
+              <Text fontSize="xs" color={metaColor}>
+                {item.date}
+              </Text>
+            )}
           </CardBody>
         </>
       ) : (
         <CardBody p={4}>
+          <IconButton
+            size="sm"
+            aria-label="Bookmark"
+            icon={<IconBookmarkFilled size={16} />}
+            position="absolute"
+            right={3}
+            top={3}
+            zIndex={2}
+            bg={iconBg}
+            backdropFilter="blur(10px)"
+            color={textColor}
+            border="1px solid"
+            borderColor={iconBorderColor}
+            _hover={{
+              bg: iconHoverBg,
+            }}
+          />
           <Flex direction="column" height="100%" justify="space-between">
             <Box>
               <Flex justify="space-between" align="flex-start" mb={3}>
-                <Heading size="sm" flex="1" noOfLines={2} color="white">
+                <Heading size="sm" flex="1" noOfLines={2} color={textColor}>
                   {item.title}
                 </Heading>
               </Flex>
               <Badge
-                bg="whiteAlpha.200"
+                bg={badgeBg}
                 backdropFilter="blur(10px)"
-                color="white"
+                color={textColor}
                 mb={2}
                 fontSize="xs"
                 border="1px solid"
-                borderColor="whiteAlpha.300"
+                borderColor={badgeBorderColor}
               >
                 {item.type}
               </Badge>
-              <Text color="whiteAlpha.700" fontSize="sm" mb={2} noOfLines={3}>
+              <Text color={descColor} fontSize="sm" mb={2} noOfLines={3}>
                 {item.description}
               </Text>
             </Box>
             <Flex justify="space-between" align="center">
-              <Text fontSize="xs" color="whiteAlpha.600" fontWeight="medium">
-                {item.newsCount} {item.newsCount === 1 ? "noticia" : "noticias"}
-              </Text>
+              {item.date && (
+                <Text fontSize="xs" color={metaColor}>
+                  {item.date}
+                </Text>
+              )}
               <Box
                 width="60px"
                 height="60px"
@@ -133,7 +190,7 @@ const NewsCard: React.FC<{
                 overflow="hidden"
                 flexShrink={0}
                 border="1px solid"
-                borderColor="whiteAlpha.200"
+                borderColor={borderColor}
               >
                 <Image
                   src={item.image}
