@@ -37,7 +37,7 @@ const MetricCard: React.FC<{
 }> = ({ icon, label, value, iconColor, isLarge = false }) => {
   return (
     <Card
-      bg="#000"
+      bg="#0A0A0A"
       color="white"
       overflow="hidden"
       position="relative"

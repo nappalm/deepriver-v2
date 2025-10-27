@@ -32,7 +32,7 @@ const TopicCard: React.FC<{
 }> = ({ topic, isLarge = false }) => {
   return (
     <Card
-      bg="#000"
+      bg="#0A0A0A"
       color="white"
       overflow="hidden"
       cursor="pointer"
@@ -63,7 +63,7 @@ const TopicCard: React.FC<{
           bg: "whiteAlpha.300",
         }}
       />
-      <Box position="relative" height={isLarge ? "250px" : "180px"}>
+      <Box position="absolute" top={0} left={0} right={0} bottom={0}>
         <Image
           src={topic.image}
           alt={topic.title}
@@ -71,9 +71,9 @@ const TopicCard: React.FC<{
           width="100%"
           objectFit="cover"
           transition="all 0.3s ease"
-          opacity={0.5}
+          opacity={0.6}
           _groupHover={{
-            opacity: 1,
+            opacity: 0.8,
           }}
         />
         <Box
@@ -82,10 +82,10 @@ const TopicCard: React.FC<{
           left={0}
           right={0}
           bottom={0}
-          bgGradient="linear(to-t, #000, rgba(0,0,0,0.95), rgba(0,0,0,0.8), rgba(0,0,0,0.5), transparent)"
+          bgGradient="linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)"
         />
       </Box>
-      <CardBody p={4} mt={isLarge ? -16 : -12} position="relative" zIndex={1}>
+      <CardBody p={4} position="relative" zIndex={1} display="flex" flexDirection="column" justifyContent="flex-end" minHeight={isLarge ? "300px" : "220px"}>
         <Flex justify="space-between" align="flex-start" mb={2}>
           <Heading
             size={isLarge ? "md" : "sm"}

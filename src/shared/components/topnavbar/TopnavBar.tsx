@@ -26,7 +26,7 @@ export default function Topnavbar() {
       w="full"
       justifyContent="space-between"
       p={3}
-      bg="#000"
+      bg="#0A0A0A"
       borderBottom="1px solid"
       borderColor="whiteAlpha.200"
       backdropFilter="blur(10px)"

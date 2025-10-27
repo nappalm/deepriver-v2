@@ -32,7 +32,7 @@ const NewsCard: React.FC<{
 }> = ({ item, isLarge = false, isFeatured = false, index }) => {
   return (
     <Card
-      bg="#000"
+      bg="#0A0A0A"
       color="white"
       overflow="hidden"
       position="relative"
@@ -48,7 +48,7 @@ const NewsCard: React.FC<{
     >
       {isFeatured ? (
         <>
-          <Box position="relative" height={isLarge ? "300px" : "200px"}>
+          <Box position="absolute" top={0} left={0} right={0} bottom={0}>
             <Image
               src={item.image}
               alt={item.title}
@@ -56,9 +56,9 @@ const NewsCard: React.FC<{
               height="100%"
               objectFit="cover"
               transition="all 0.3s ease"
-              opacity={0.5}
+              opacity={0.6}
               _groupHover={{
-                opacity: 1,
+                opacity: 0.8,
               }}
             />
             <Box
@@ -67,7 +67,7 @@ const NewsCard: React.FC<{
               left={0}
               right={0}
               bottom={0}
-              bgGradient="linear(to-t, #000, rgba(0,0,0,0.95), rgba(0,0,0,0.8), rgba(0,0,0,0.5), transparent)"
+              bgGradient="linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)"
             />
             <Badge
               position="absolute"
@@ -81,11 +81,12 @@ const NewsCard: React.FC<{
               py={1}
               border="1px solid"
               borderColor="whiteAlpha.300"
+              zIndex={2}
             >
               {item.type}
             </Badge>
           </Box>
-          <CardBody p={4} mt={-20} position="relative" zIndex={1}>
+          <CardBody p={4} position="relative" zIndex={1} display="flex" flexDirection="column" justifyContent="flex-end" minHeight={isLarge ? "300px" : "250px"}>
             <Heading size={isLarge ? "lg" : "md"} mb={2} color="white">
               {item.title}
             </Heading>

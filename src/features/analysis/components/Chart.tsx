@@ -27,7 +27,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
       <Box
-        bg="#000"
+        bg="#0A0A0A"
         border="1px solid"
         borderColor="whiteAlpha.200"
         p={3}
@@ -58,7 +58,7 @@ const Chart: React.FC<ChartProps> = ({
 
   return (
     <Card
-      bg="#000"
+      bg="#0A0A0A"
       color="white"
       overflow="hidden"
       position="relative"
