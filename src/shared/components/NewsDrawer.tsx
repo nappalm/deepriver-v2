@@ -99,8 +99,8 @@ const NewsDrawer: React.FC<NewsDrawerProps> = ({ isOpen, onClose }) => {
                 right={0}
                 bottom={0}
                 bgGradient={useColorModeValue(
-                  "linear(to-t, rgba(255,255,255,0.9), transparent)",
-                  "linear(to-t, rgba(10,10,10,0.9), transparent)"
+                  "linear(to-t, rgba(255,255,255,0.85), rgba(255,255,255,0.5), rgba(255,255,255,0.2), transparent)",
+                  "linear(to-t, rgba(10,10,10,0.85), rgba(10,10,10,0.5), rgba(10,10,10,0.2), transparent)"
                 )}
               />
             </Box>

@@ -43,8 +43,8 @@ const TopicCard: React.FC<{
   const iconHoverBg = useColorModeValue("gray.200", "whiteAlpha.300");
   const hoverBg = useColorModeValue("#f9f9f9", "#111");
   const gradientBg = useColorModeValue(
-    "linear(to-t, #ffffff, rgba(255,255,255,0.95), rgba(255,255,255,0.85), rgba(255,255,255,0.6), rgba(255,255,255,0.3), transparent)",
-    "linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)",
+    "linear(to-t, rgba(255,255,255,0.95), rgba(255,255,255,0.7), rgba(255,255,255,0.4), rgba(255,255,255,0.1), transparent)",
+    "linear(to-t, rgba(10,10,10,0.95), rgba(10,10,10,0.7), rgba(10,10,10,0.4), rgba(10,10,10,0.1), transparent)",
   );
 
   return (
