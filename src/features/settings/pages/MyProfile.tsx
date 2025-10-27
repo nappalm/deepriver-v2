@@ -1,5 +1,5 @@
 import { Alert, AlertIcon, Heading, Stack } from "@chakra-ui/react";
-import ProfileForm from "../components/profile/ProfileForm";
+import ProfileForm from "../components/Profile/ProfileForm";
 import { useUpdateEmail, useUpdateProfile } from "../hooks/useAccount";
 import { OnSubmitProfile } from "../utils/types";
 import { useAuthenticatedUser } from "@/shared/hooks";
