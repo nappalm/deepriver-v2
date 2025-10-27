@@ -27,13 +27,20 @@ export default function UserMenu() {
 
   return (
     <HStack>
-      <Box bg="transparent" p="3px" borderRadius="full">
+      <Box
+        bg="whiteAlpha.200"
+        p="3px"
+        borderRadius="full"
+        border="1px solid"
+        borderColor="whiteAlpha.300"
+        backdropFilter="blur(10px)"
+      >
         <Avatar
           src={user?.user_metadata?.avatar_url}
           size="xs"
           name={userName}
           icon={<IconUserFilled size={18} />}
-          bg="transparent"
+          bg="whiteAlpha.200"
         />
       </Box>
       <Menu>
@@ -41,13 +48,33 @@ export default function UserMenu() {
           as={Button}
           size="sm"
           rightIcon={<IconChevronDown size={16} />}
+          variant="ghost"
+          color="whiteAlpha.700"
+          _hover={{
+            bg: "whiteAlpha.200",
+            color: "white",
+          }}
+          _active={{
+            bg: "whiteAlpha.300",
+          }}
         >
           {userName ?? user?.email}
         </MenuButton>
-        <MenuList>
+        <MenuList
+          bg="#000"
+          border="1px solid"
+          borderColor="whiteAlpha.200"
+          backdropFilter="blur(10px)"
+        >
           <MenuItem
             onClick={() => handleNavigate(SETTINGS_PATHS.myProfile)}
             icon={<IconSettings size={18} />}
+            bg="#000"
+            color="whiteAlpha.700"
+            _hover={{
+              bg: "whiteAlpha.200",
+              color: "white",
+            }}
           >
             Profile settings
           </MenuItem>

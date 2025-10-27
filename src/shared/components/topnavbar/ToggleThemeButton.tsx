@@ -10,6 +10,14 @@ export default function ToggleThemeButton() {
       variant="ghost"
       onClick={toggleColorMode}
       size="sm"
+      color="whiteAlpha.700"
+      _hover={{
+        bg: "whiteAlpha.200",
+        color: "white",
+      }}
+      _active={{
+        bg: "whiteAlpha.300",
+      }}
       icon={
         colorMode === "light" ? (
           <IconMoonFilled size={18} />

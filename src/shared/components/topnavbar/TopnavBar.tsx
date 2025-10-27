@@ -2,7 +2,6 @@ import {
   Button,
   ButtonGroup,
   HStack,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import {
   IconCalendarFilled,
@@ -18,8 +17,6 @@ import ToggleThemeButton from "./ToggleThemeButton";
 import UserMenu from "./UserMenu";
 
 export default function Topnavbar() {
-  const bg = useColorModeValue("transparent", "gray.900");
-  const borderColor = useColorModeValue("gray.200", "gray.800");
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname.startsWith(path);
@@ -29,9 +26,13 @@ export default function Topnavbar() {
       w="full"
       justifyContent="space-between"
       p={3}
-      bg={bg}
+      bg="#000"
       borderBottom="1px solid"
-      borderColor={borderColor}
+      borderColor="whiteAlpha.200"
+      backdropFilter="blur(10px)"
+      position="sticky"
+      top={0}
+      zIndex={100}
     >
       <HStack>
         <Link to="/">
@@ -43,7 +44,13 @@ export default function Topnavbar() {
             to="/feed"
             size="sm"
             leftIcon={<IconArticleFilled size={16} />}
-            variant={isActive("/feed") ? "solid" : "ghost"}
+            variant="ghost"
+            color={isActive("/feed") ? "white" : "whiteAlpha.700"}
+            bg={isActive("/feed") ? "whiteAlpha.200" : "transparent"}
+            _hover={{
+              bg: "whiteAlpha.200",
+              color: "white",
+            }}
           >
             Feed
           </Button>
@@ -52,7 +59,13 @@ export default function Topnavbar() {
             to="/events"
             size="sm"
             leftIcon={<IconTimelineEventFilled size={16} />}
-            variant={isActive("/events") ? "solid" : "ghost"}
+            variant="ghost"
+            color={isActive("/events") ? "white" : "whiteAlpha.700"}
+            bg={isActive("/events") ? "whiteAlpha.200" : "transparent"}
+            _hover={{
+              bg: "whiteAlpha.200",
+              color: "white",
+            }}
           >
             Events
           </Button>
@@ -61,8 +74,13 @@ export default function Topnavbar() {
             to="/analysis"
             size="sm"
             leftIcon={<IconChartPieFilled size={16} />}
-            variant="solid"
-            colorScheme="blue"
+            variant="ghost"
+            color={isActive("/analysis") ? "white" : "whiteAlpha.700"}
+            bg={isActive("/analysis") ? "whiteAlpha.200" : "transparent"}
+            _hover={{
+              bg: "whiteAlpha.200",
+              color: "white",
+            }}
           >
             Analysis
           </Button>
@@ -71,7 +89,13 @@ export default function Topnavbar() {
             to="/reports"
             size="sm"
             leftIcon={<IconChartAreaFilled size={16} />}
-            variant={isActive("/reports") ? "solid" : "ghost"}
+            variant="ghost"
+            color={isActive("/reports") ? "white" : "whiteAlpha.700"}
+            bg={isActive("/reports") ? "whiteAlpha.200" : "transparent"}
+            _hover={{
+              bg: "whiteAlpha.200",
+              color: "white",
+            }}
           >
             Reports
           </Button>
@@ -80,7 +104,13 @@ export default function Topnavbar() {
             to="/collections"
             size="sm"
             leftIcon={<IconFolderFilled size={16} />}
-            variant={isActive("/collections") ? "solid" : "ghost"}
+            variant="ghost"
+            color={isActive("/collections") ? "white" : "whiteAlpha.700"}
+            bg={isActive("/collections") ? "whiteAlpha.200" : "transparent"}
+            _hover={{
+              bg: "whiteAlpha.200",
+              color: "white",
+            }}
           >
             Collections
           </Button>

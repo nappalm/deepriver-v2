@@ -1,7 +1,9 @@
-import { Grid, Box } from "@chakra-ui/react";
+import { Grid, Box, VStack } from "@chakra-ui/react";
 import Topics from "../components/Topics";
 import News from "../components/News";
 import Metrics from "../components/Metrics";
+import Map from "../components/Map";
+import Chart from "../components/Chart";
 
 export default function Analysis() {
   // Datos de ejemplo para Topics
@@ -391,8 +393,108 @@ export default function Analysis() {
     valuationMXN: 15000000,
   };
 
+  // Datos de ejemplo para Map - Distribuidos por México
+  const mapLocations = [
+    {
+      id: "1",
+      latitude: 19.4326,
+      longitude: -99.1332,
+      title: "Ciudad de México",
+      count: 45,
+    },
+    {
+      id: "2",
+      latitude: 25.6866,
+      longitude: -100.3161,
+      title: "Monterrey",
+      count: 38,
+    },
+    {
+      id: "3",
+      latitude: 20.6597,
+      longitude: -103.3496,
+      title: "Guadalajara",
+      count: 42,
+    },
+    {
+      id: "4",
+      latitude: 21.1619,
+      longitude: -86.8515,
+      title: "Cancún",
+      count: 28,
+    },
+    {
+      id: "5",
+      latitude: 32.6245,
+      longitude: -115.4523,
+      title: "Tijuana",
+      count: 35,
+    },
+    {
+      id: "6",
+      latitude: 19.0414,
+      longitude: -98.2063,
+      title: "Puebla",
+      count: 31,
+    },
+    {
+      id: "7",
+      latitude: 20.9674,
+      longitude: -89.5926,
+      title: "Mérida",
+      count: 24,
+    },
+    {
+      id: "8",
+      latitude: 31.6904,
+      longitude: -106.4245,
+      title: "Ciudad Juárez",
+      count: 22,
+    },
+    {
+      id: "9",
+      latitude: 25.5428,
+      longitude: -103.4068,
+      title: "Torreón",
+      count: 19,
+    },
+    {
+      id: "10",
+      latitude: 17.0732,
+      longitude: -96.7266,
+      title: "Oaxaca",
+      count: 26,
+    },
+    {
+      id: "11",
+      latitude: 22.1565,
+      longitude: -100.9855,
+      title: "San Luis Potosí",
+      count: 20,
+    },
+    {
+      id: "12",
+      latitude: 16.7569,
+      longitude: -93.1292,
+      title: "Tuxtla Gutiérrez",
+      count: 17,
+    },
+  ];
+
+  // Datos de ejemplo para Chart
+  const chartData = [
+    { name: "00h", value: 12 },
+    { name: "03h", value: 8 },
+    { name: "06h", value: 15 },
+    { name: "09h", value: 45 },
+    { name: "12h", value: 62 },
+    { name: "15h", value: 58 },
+    { name: "18h", value: 48 },
+    { name: "21h", value: 35 },
+  ];
+
   return (
-    <Box p={6} height="100vh" overflow="hidden">
+    <Box overflow="hidden">
       <Grid
         templateColumns={{ base: "1fr", lg: "2fr 1.5fr 1fr" }}
         gap={6}
@@ -404,9 +506,19 @@ export default function Analysis() {
         <Box overflowY="auto" height="100%" pr={2}>
           <News news={newsData} />
         </Box>
-        <Box overflowY="auto" height="100%">
+        <VStack overflowY="auto" height="100%" spacing={6} align="stretch">
+          <Box height="250px" width="100%">
+            <Map locations={mapLocations} />
+          </Box>
+          <Box height="180px" width="100%">
+            <Chart
+              data={chartData}
+              title="Tendencias temporales"
+              color="#3b82f6"
+            />
+          </Box>
           <Metrics data={metricsData} />
-        </Box>
+        </VStack>
       </Grid>
     </Box>
   );
