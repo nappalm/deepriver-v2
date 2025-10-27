@@ -39,9 +39,10 @@ const TopicCard: React.FC<{
   const iconBg = useColorModeValue("gray.100", "whiteAlpha.200");
   const iconBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
   const iconHoverBg = useColorModeValue("gray.200", "whiteAlpha.300");
+  const hoverBg = useColorModeValue("#f9f9f9", "#111");
   const gradientBg = useColorModeValue(
     "linear(to-t, #ffffff, rgba(255,255,255,0.95), rgba(255,255,255,0.85), rgba(255,255,255,0.6), rgba(255,255,255,0.3), transparent)",
-    "linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)"
+    "linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)",
   );
 
   return (
@@ -51,6 +52,11 @@ const TopicCard: React.FC<{
       overflow="hidden"
       cursor="pointer"
       transition="all 0.3s ease"
+      _hover={{
+        transform: "translateY(-2px)",
+        shadow: "lg",
+        bg: hoverBg,
+      }}
       height="100%"
       role="group"
       position="relative"
@@ -85,9 +91,9 @@ const TopicCard: React.FC<{
           width="100%"
           objectFit="cover"
           transition="all 0.3s ease"
-          opacity={0.6}
+          opacity={0.7}
           _groupHover={{
-            opacity: 0.8,
+            opacity: 1,
           }}
         />
         <Box
@@ -99,7 +105,15 @@ const TopicCard: React.FC<{
           bgGradient={gradientBg}
         />
       </Box>
-      <CardBody p={4} position="relative" zIndex={1} display="flex" flexDirection="column" justifyContent="flex-end" minHeight={isLarge ? "300px" : "220px"}>
+      <CardBody
+        p={4}
+        position="relative"
+        zIndex={1}
+        display="flex"
+        flexDirection="column"
+        justifyContent="flex-end"
+        minHeight={isLarge ? "300px" : "220px"}
+      >
         <Flex justify="space-between" align="flex-start" mb={2}>
           <Heading
             size={isLarge ? "md" : "sm"}

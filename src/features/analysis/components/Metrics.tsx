@@ -62,20 +62,8 @@ const MetricCard: React.FC<{
       borderColor={borderColor}
     >
       <CardBody p={isLarge ? 4 : 3}>
-        <Flex direction="column" justify="space-between" height="100%">
-          <Box>
-            <Circle
-              size={isLarge ? "40px" : "32px"}
-              bg={circleBg}
-              backdropFilter="blur(10px)"
-              mb={2}
-              border="1px solid"
-              borderColor={circleBorderColor}
-            >
-              <Icon as={icon} boxSize={isLarge ? 5 : 4} color={iconColor} />
-            </Circle>
-          </Box>
-          <Box>
+        <Flex align="center" justify="space-between" height="100%">
+          <Box flex="1">
             <Heading
               fontSize={isLarge ? "xl" : "lg"}
               fontWeight="bold"
@@ -94,6 +82,16 @@ const MetricCard: React.FC<{
               {label}
             </Text>
           </Box>
+          <Circle
+            size={isLarge ? "40px" : "32px"}
+            bg={circleBg}
+            backdropFilter="blur(10px)"
+            border="1px solid"
+            borderColor={circleBorderColor}
+            flexShrink={0}
+          >
+            <Icon as={icon} boxSize={isLarge ? 5 : 4} color={iconColor} />
+          </Circle>
         </Flex>
       </CardBody>
       <Box

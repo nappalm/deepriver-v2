@@ -102,10 +102,13 @@ const variantOutline = definePartsStyle((props) => {
   return {
     field: {
       border: "1px solid",
-      borderColor: "input.border",
-      bg: "input.bg",
+      borderColor: mode("gray.200", "whiteAlpha.200")(props),
+      bg: mode("#ffffff", "whiteAlpha.100")(props),
+      color: mode("gray.900", "white")(props),
+      backdropFilter: "blur(10px)",
       _hover: {
-        borderColor: mode("gray.300", "whiteAlpha.400")(props),
+        borderColor: mode("gray.300", "whiteAlpha.300")(props),
+        bg: mode("gray.50", "whiteAlpha.150")(props),
       },
       _readOnly: {
         boxShadow: "none !important",
@@ -119,12 +122,17 @@ const variantOutline = definePartsStyle((props) => {
         zIndex: 1,
         borderColor: getColor(theme, fc),
         boxShadow: `0 0 0 1px ${getColor(theme, fc)}`,
+        bg: mode("#ffffff", "#0A0A0A")(props),
+      },
+      _placeholder: {
+        color: mode("gray.500", "whiteAlpha.600")(props),
       },
     },
     addon: {
       border: "1px solid",
-      borderColor: mode("inherit", "whiteAlpha.50")(props),
-      bg: mode("gray.100", "whiteAlpha.300")(props),
+      borderColor: mode("gray.200", "whiteAlpha.200")(props),
+      bg: mode("gray.100", "whiteAlpha.200")(props),
+      backdropFilter: "blur(10px)",
     },
   };
 });
@@ -135,11 +143,14 @@ const variantFilled = definePartsStyle((props) => {
 
   return {
     field: {
-      border: "2px solid",
-      borderColor: "transparent",
-      bg: mode("gray.100", "whiteAlpha.50")(props),
+      border: "1px solid",
+      borderColor: mode("gray.200", "whiteAlpha.200")(props),
+      bg: mode("gray.50", "whiteAlpha.100")(props),
+      color: mode("gray.900", "white")(props),
+      backdropFilter: "blur(10px)",
       _hover: {
-        bg: mode("gray.200", "whiteAlpha.100")(props),
+        bg: mode("gray.100", "whiteAlpha.150")(props),
+        borderColor: mode("gray.300", "whiteAlpha.300")(props),
       },
       _readOnly: {
         boxShadow: "none !important",
@@ -149,14 +160,19 @@ const variantFilled = definePartsStyle((props) => {
         borderColor: getColor(theme, ec),
       },
       _focusVisible: {
-        bg: "transparent",
+        bg: mode("#ffffff", "#0A0A0A")(props),
         borderColor: getColor(theme, fc),
+        boxShadow: `0 0 0 1px ${getColor(theme, fc)}`,
+      },
+      _placeholder: {
+        color: mode("gray.500", "whiteAlpha.600")(props),
       },
     },
     addon: {
-      border: "2px solid",
-      borderColor: "transparent",
-      bg: mode("gray.100", "whiteAlpha.50")(props),
+      border: "1px solid",
+      borderColor: mode("gray.200", "whiteAlpha.200")(props),
+      bg: mode("gray.100", "whiteAlpha.200")(props),
+      backdropFilter: "blur(10px)",
     },
   };
 });

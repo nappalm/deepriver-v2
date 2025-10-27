@@ -1,4 +1,4 @@
-import { Grid, Box, VStack } from "@chakra-ui/react";
+import { Grid, Box, VStack, Heading, Stack, HStack } from "@chakra-ui/react";
 import Topics from "../components/Topics";
 import News from "../components/News";
 import Metrics from "../components/Metrics";
@@ -521,13 +521,14 @@ export default function Analysis() {
 
   return (
     <Box overflow="hidden">
-      <Box mb={6}>
+      <HStack gap={5} mb={5}>
+        <Heading variant="titleUnderline">Analysis</Heading>
         <Filters onFiltersChange={handleFiltersChange} />
-      </Box>
+      </HStack>
       <Grid
         templateColumns={{ base: "1fr", lg: "2fr 1.5fr 1fr" }}
         gap={6}
-        height="calc(100vh - 250px)"
+        height="calc(100vh - 169px)"
       >
         <Box overflowY="auto" overflowX="hidden" pr={2} height="100%">
           <Topics topics={topicsData} />

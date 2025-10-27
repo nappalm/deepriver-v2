@@ -46,7 +46,7 @@ const NewsCard: React.FC<{
   const iconHoverBg = useColorModeValue("gray.200", "whiteAlpha.300");
   const gradientBg = useColorModeValue(
     "linear(to-t, #ffffff, rgba(255,255,255,0.95), rgba(255,255,255,0.85), rgba(255,255,255,0.6), rgba(255,255,255,0.3), transparent)",
-    "linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)"
+    "linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)",
   );
 
   return (
@@ -92,9 +92,9 @@ const NewsCard: React.FC<{
               height="100%"
               objectFit="cover"
               transition="all 0.3s ease"
-              opacity={0.6}
+              opacity={0.7}
               _groupHover={{
-                opacity: 0.8,
+                opacity: 1,
               }}
             />
             <Box
@@ -122,7 +122,15 @@ const NewsCard: React.FC<{
               {item.type}
             </Badge>
           </Box>
-          <CardBody p={4} position="relative" zIndex={1} display="flex" flexDirection="column" justifyContent="flex-end" minHeight={isLarge ? "300px" : "250px"}>
+          <CardBody
+            p={4}
+            position="relative"
+            zIndex={1}
+            display="flex"
+            flexDirection="column"
+            justifyContent="flex-end"
+            minHeight={isLarge ? "300px" : "250px"}
+          >
             <Heading size={isLarge ? "lg" : "md"} mb={2} color={textColor}>
               {item.title}
             </Heading>

@@ -11,15 +11,5 @@ export default defineStyleConfig({
       marginTop: 3,
       marginBottom: 4,
     },
-    title: {
-      fontSize: 20,
-      fontWeight: 500,
-    },
-    number: {
-      fontFamily: "Inconsolata",
-    },
-  },
-  defaultProps: {
-    variant: "title",
   },
 });

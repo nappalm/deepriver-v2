@@ -1,9 +1,8 @@
 import {
   Box,
   Button,
+  Divider,
   Flex,
-  Heading,
-  HStack,
   Input,
   InputGroup,
   InputLeftElement,
@@ -11,14 +10,10 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  VStack,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  IconChevronDown,
-  IconFilter,
-  IconSearch,
-} from "@tabler/icons-react";
+import { IconChevronDown, IconFilter, IconSearch } from "@tabler/icons-react";
 import React, { useState } from "react";
 
 interface FiltersProps {
@@ -80,189 +75,31 @@ const Filters: React.FC<FiltersProps> = ({ onFiltersChange }) => {
     "Alfabético Z-A",
   ];
 
-  const levelOptions = [
-    "Todos",
-    "Nacional",
-    "Estatal",
-    "Municipal",
-    "Local",
-  ];
+  const levelOptions = ["Todos", "Nacional", "Estatal", "Municipal", "Local"];
 
-  const newsTypes = [
-    "Todos",
-    "Artículo",
-    "Twitter",
-    "Facebook",
-    "Web",
-  ];
+  const newsTypes = ["Todos", "Artículo", "Twitter", "Facebook", "Web"];
+
+  const activeFiltersCount = Object.values(filters).filter((value, index) => {
+    const keys = Object.keys(filters);
+    const key = keys[index];
+    if (key === "searchQuery" || key === "sources") {
+      return value !== "";
+    }
+    return value !== "Todos" && value !== "Más recientes";
+  }).length;
 
   return (
-    <Box
-      bg={bg}
-      border="1px solid"
-      borderColor={borderColor}
-      borderRadius="md"
-      p={4}
-      width="100%"
-    >
-      <Flex gap={3} align="center" flexWrap="wrap">
-        {/* Búsqueda general */}
-        <Box flex="1" minWidth="200px">
-          <InputGroup size="sm">
-            <InputLeftElement pointerEvents="none">
-              <IconSearch size={16} color={iconColor} />
-            </InputLeftElement>
-            <Input
-              placeholder="Buscar..."
-              value={filters.searchQuery}
-              onChange={(e) =>
-                handleFilterChange("searchQuery", e.target.value)
-              }
-              bg={inputBg}
-              border="1px solid"
-              borderColor={borderColor}
-              color={textColor}
-              _placeholder={{ color: placeholderColor }}
-              _focus={{
-                borderColor: "blue.400",
-                boxShadow: "0 0 0 1px var(--chakra-colors-blue-400)",
-              }}
-            />
-          </InputGroup>
-        </Box>
-        {/* Tipo de evento */}
-        <Menu>
-          <MenuButton
-            as={Button}
-            size="sm"
-            rightIcon={<IconChevronDown size={16} />}
-            variant="outline"
-            borderColor={borderColor}
-            color={textColor}
-            _hover={{ bg: menuItemHoverBg }}
-            _active={{ bg: menuItemHoverBg }}
-            minWidth="140px"
-          >
-            {filters.eventType}
-          </MenuButton>
-          <MenuList
-            bg={menuBg}
-            border="1px solid"
-            borderColor={borderColor}
-            maxHeight="250px"
-            overflowY="auto"
-          >
-            {eventTypes.map((type) => (
-              <MenuItem
-                key={type}
-                onClick={() => handleFilterChange("eventType", type)}
-                bg={menuBg}
-                color={textColor}
-                _hover={{ bg: menuItemHoverBg }}
-              >
-                {type}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-
-        {/* Ordenar por */}
-        <Menu>
-          <MenuButton
-            as={Button}
-            size="sm"
-            rightIcon={<IconChevronDown size={16} />}
-            variant="outline"
-            borderColor={borderColor}
-            color={textColor}
-            _hover={{ bg: menuItemHoverBg }}
-            _active={{ bg: menuItemHoverBg }}
-            minWidth="140px"
-          >
-            {filters.sortBy}
-          </MenuButton>
-          <MenuList bg={menuBg} border="1px solid" borderColor={borderColor}>
-            {sortOptions.map((option) => (
-              <MenuItem
-                key={option}
-                onClick={() => handleFilterChange("sortBy", option)}
-                bg={menuBg}
-                color={textColor}
-                _hover={{ bg: menuItemHoverBg }}
-              >
-                {option}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-
-        {/* Nivel */}
-        <Menu>
-          <MenuButton
-            as={Button}
-            size="sm"
-            rightIcon={<IconChevronDown size={16} />}
-            variant="outline"
-            borderColor={borderColor}
-            color={textColor}
-            _hover={{ bg: menuItemHoverBg }}
-            _active={{ bg: menuItemHoverBg }}
-            minWidth="120px"
-          >
-            {filters.level}
-          </MenuButton>
-          <MenuList bg={menuBg} border="1px solid" borderColor={borderColor}>
-            {levelOptions.map((level) => (
-              <MenuItem
-                key={level}
-                onClick={() => handleFilterChange("level", level)}
-                bg={menuBg}
-                color={textColor}
-                _hover={{ bg: menuItemHoverBg }}
-              >
-                {level}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-
-        {/* Tipo de noticia */}
-        <Menu>
-          <MenuButton
-            as={Button}
-            size="sm"
-            rightIcon={<IconChevronDown size={16} />}
-            variant="outline"
-            borderColor={borderColor}
-            color={textColor}
-            _hover={{ bg: menuItemHoverBg }}
-            _active={{ bg: menuItemHoverBg }}
-            minWidth="120px"
-          >
-            {filters.newsType}
-          </MenuButton>
-          <MenuList bg={menuBg} border="1px solid" borderColor={borderColor}>
-            {newsTypes.map((type) => (
-              <MenuItem
-                key={type}
-                onClick={() => handleFilterChange("newsType", type)}
-                bg={menuBg}
-                color={textColor}
-                _hover={{ bg: menuItemHoverBg }}
-              >
-                {type}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-
-        {/* Fuentes */}
-        <Box minWidth="150px">
+    <Flex gap={3} align="center">
+      {/* Búsqueda general */}
+      <Box flex="1" minWidth="250px">
+        <InputGroup size="sm">
+          <InputLeftElement pointerEvents="none">
+            <IconSearch size={16} />
+          </InputLeftElement>
           <Input
-            placeholder="Filtrar por fuente..."
-            value={filters.sources}
-            onChange={(e) => handleFilterChange("sources", e.target.value)}
-            size="sm"
+            placeholder="Buscar..."
+            value={filters.searchQuery}
+            onChange={(e) => handleFilterChange("searchQuery", e.target.value)}
             bg={inputBg}
             border="1px solid"
             borderColor={borderColor}
@@ -273,31 +110,241 @@ const Filters: React.FC<FiltersProps> = ({ onFiltersChange }) => {
               boxShadow: "0 0 0 1px var(--chakra-colors-blue-400)",
             }}
           />
-        </Box>
+        </InputGroup>
+      </Box>
 
-        {/* Botón Limpiar */}
-        <Button
+      {/* Menú de filtros */}
+      <Menu closeOnSelect={false}>
+        <MenuButton
+          as={Button}
           size="sm"
-          variant="ghost"
-          color={iconColor}
+          variant="solid"
+          rightIcon={<IconChevronDown size={16} />}
           leftIcon={<IconFilter size={16} />}
-          onClick={() => {
-            const resetFilters: FilterState = {
-              searchQuery: "",
-              eventType: "Todos",
-              sortBy: "Más recientes",
-              level: "Todos",
-              sources: "",
-              newsType: "Todos",
-            };
-            setFilters(resetFilters);
-            onFiltersChange?.(resetFilters);
-          }}
+          borderColor={borderColor}
+          color={textColor}
+          _hover={{ bg: menuItemHoverBg }}
+          _active={{ bg: menuItemHoverBg }}
         >
-          Limpiar
-        </Button>
-      </Flex>
-    </Box>
+          Filtros {activeFiltersCount > 0 && `(${activeFiltersCount})`}
+        </MenuButton>
+        <MenuList
+          bg={menuBg}
+          border="1px solid"
+          borderColor={borderColor}
+          p={4}
+          minWidth="350px"
+        >
+          {/* Tipo de evento */}
+          <Box mb={3}>
+            <Text fontSize="xs" fontWeight="bold" mb={2} color={textColor}>
+              Tipo de evento
+            </Text>
+            <Menu>
+              <MenuButton
+                as={Button}
+                size="sm"
+                rightIcon={<IconChevronDown size={16} />}
+                variant="outline"
+                borderColor={borderColor}
+                color={textColor}
+                width="100%"
+                _hover={{ bg: menuItemHoverBg }}
+              >
+                {filters.eventType}
+              </MenuButton>
+              <MenuList
+                bg={menuBg}
+                border="1px solid"
+                borderColor={borderColor}
+                maxHeight="200px"
+                overflowY="auto"
+              >
+                {eventTypes.map((type) => (
+                  <MenuItem
+                    key={type}
+                    onClick={() => handleFilterChange("eventType", type)}
+                    bg={menuBg}
+                    color={textColor}
+                    _hover={{ bg: menuItemHoverBg }}
+                  >
+                    {type}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Box>
+
+          <Divider mb={3} borderColor={borderColor} />
+
+          {/* Ordenar por */}
+          <Box mb={3}>
+            <Text fontSize="xs" fontWeight="bold" mb={2} color={textColor}>
+              Ordenar por
+            </Text>
+            <Menu>
+              <MenuButton
+                as={Button}
+                size="sm"
+                rightIcon={<IconChevronDown size={16} />}
+                variant="outline"
+                borderColor={borderColor}
+                color={textColor}
+                width="100%"
+                _hover={{ bg: menuItemHoverBg }}
+              >
+                {filters.sortBy}
+              </MenuButton>
+              <MenuList
+                bg={menuBg}
+                border="1px solid"
+                borderColor={borderColor}
+              >
+                {sortOptions.map((option) => (
+                  <MenuItem
+                    key={option}
+                    onClick={() => handleFilterChange("sortBy", option)}
+                    bg={menuBg}
+                    color={textColor}
+                    _hover={{ bg: menuItemHoverBg }}
+                  >
+                    {option}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Box>
+
+          <Divider mb={3} borderColor={borderColor} />
+
+          {/* Nivel */}
+          <Box mb={3}>
+            <Text fontSize="xs" fontWeight="bold" mb={2} color={textColor}>
+              Nivel
+            </Text>
+            <Menu>
+              <MenuButton
+                as={Button}
+                size="sm"
+                rightIcon={<IconChevronDown size={16} />}
+                variant="outline"
+                borderColor={borderColor}
+                color={textColor}
+                width="100%"
+                _hover={{ bg: menuItemHoverBg }}
+              >
+                {filters.level}
+              </MenuButton>
+              <MenuList
+                bg={menuBg}
+                border="1px solid"
+                borderColor={borderColor}
+              >
+                {levelOptions.map((level) => (
+                  <MenuItem
+                    key={level}
+                    onClick={() => handleFilterChange("level", level)}
+                    bg={menuBg}
+                    color={textColor}
+                    _hover={{ bg: menuItemHoverBg }}
+                  >
+                    {level}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Box>
+
+          <Divider mb={3} borderColor={borderColor} />
+
+          {/* Tipo de noticia */}
+          <Box mb={3}>
+            <Text fontSize="xs" fontWeight="bold" mb={2} color={textColor}>
+              Tipo de noticia
+            </Text>
+            <Menu>
+              <MenuButton
+                as={Button}
+                size="sm"
+                rightIcon={<IconChevronDown size={16} />}
+                variant="outline"
+                borderColor={borderColor}
+                color={textColor}
+                width="100%"
+                _hover={{ bg: menuItemHoverBg }}
+              >
+                {filters.newsType}
+              </MenuButton>
+              <MenuList
+                bg={menuBg}
+                border="1px solid"
+                borderColor={borderColor}
+              >
+                {newsTypes.map((type) => (
+                  <MenuItem
+                    key={type}
+                    onClick={() => handleFilterChange("newsType", type)}
+                    bg={menuBg}
+                    color={textColor}
+                    _hover={{ bg: menuItemHoverBg }}
+                  >
+                    {type}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Box>
+
+          <Divider mb={3} borderColor={borderColor} />
+
+          {/* Fuentes */}
+          <Box mb={3}>
+            <Text fontSize="xs" fontWeight="bold" mb={2} color={textColor}>
+              Fuentes
+            </Text>
+            <Input
+              placeholder="Filtrar por fuente..."
+              value={filters.sources}
+              onChange={(e) => handleFilterChange("sources", e.target.value)}
+              size="sm"
+              bg={inputBg}
+              border="1px solid"
+              borderColor={borderColor}
+              color={textColor}
+              _placeholder={{ color: placeholderColor }}
+              _focus={{
+                borderColor: "blue.400",
+                boxShadow: "0 0 0 1px var(--chakra-colors-blue-400)",
+              }}
+            />
+          </Box>
+
+          <Divider mb={3} borderColor={borderColor} />
+
+          {/* Botón Limpiar */}
+          <Button
+            size="sm"
+            variant="ghost"
+            width="100%"
+            color={iconColor}
+            onClick={() => {
+              const resetFilters: FilterState = {
+                searchQuery: "",
+                eventType: "Todos",
+                sortBy: "Más recientes",
+                level: "Todos",
+                sources: "",
+                newsType: "Todos",
+              };
+              setFilters(resetFilters);
+              onFiltersChange?.(resetFilters);
+            }}
+          >
+            Limpiar filtros
+          </Button>
+        </MenuList>
+      </Menu>
+    </Flex>
   );
 };
 
