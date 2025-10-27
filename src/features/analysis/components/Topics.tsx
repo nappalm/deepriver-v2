@@ -25,12 +25,14 @@ interface Topic {
 
 interface TopicsProps {
   topics: Topic[];
+  onTopicClick?: () => void;
 }
 
 const TopicCard: React.FC<{
   topic: Topic;
   isLarge?: boolean;
-}> = ({ topic, isLarge = false }) => {
+  onClick?: () => void;
+}> = ({ topic, isLarge = false, onClick }) => {
   const bg = useColorModeValue("#ffffff", "#0A0A0A");
   const textColor = useColorModeValue("gray.900", "white");
   const descColor = useColorModeValue("gray.600", "whiteAlpha.700");
@@ -62,6 +64,7 @@ const TopicCard: React.FC<{
       position="relative"
       border="1px solid"
       borderColor={borderColor}
+      onClick={onClick}
     >
       <Box position="absolute" left={3} top={3} color="red.400" zIndex={2}>
         <IconFlameFilled size={18} />
@@ -156,7 +159,7 @@ const TopicCard: React.FC<{
   );
 };
 
-const Topics: React.FC<TopicsProps> = ({ topics }) => {
+const Topics: React.FC<TopicsProps> = ({ topics, onTopicClick }) => {
   return (
     <VStack align="start">
       <Heading size="md" mb={4}>
@@ -169,12 +172,12 @@ const Topics: React.FC<TopicsProps> = ({ topics }) => {
       >
         {topics.length > 0 && (
           <Box gridColumn={{ base: "span 1", md: "span 2" }}>
-            <TopicCard topic={topics[0]} isLarge={true} />
+            <TopicCard topic={topics[0]} isLarge={true} onClick={onTopicClick} />
           </Box>
         )}
         {topics.slice(1).map((topic) => (
           <Box key={topic.id} gridColumn="span 1">
-            <TopicCard topic={topic} />
+            <TopicCard topic={topic} onClick={onTopicClick} />
           </Box>
         ))}
       </Grid>

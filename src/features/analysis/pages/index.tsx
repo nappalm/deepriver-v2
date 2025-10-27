@@ -1,12 +1,14 @@
-import { Grid, Box, VStack, Heading, Stack, HStack } from "@chakra-ui/react";
+import { Grid, Box, VStack, Heading, Stack, HStack, useDisclosure } from "@chakra-ui/react";
 import Topics from "../components/Topics";
 import News from "../components/News";
 import Metrics from "../components/Metrics";
 import Map from "../components/Map";
 import Chart from "../components/Chart";
 import Filters from "../components/Filters";
+import NewsDrawer from "@/shared/components/NewsDrawer";
 
 export default function Analysis() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   // Datos de ejemplo para Topics
   const topicsData = [
     {
@@ -531,10 +533,10 @@ export default function Analysis() {
         height="calc(100vh - 169px)"
       >
         <Box overflowY="auto" overflowX="hidden" pr={2} height="100%">
-          <Topics topics={topicsData} />
+          <Topics topics={topicsData} onTopicClick={onOpen} />
         </Box>
         <Box overflowY="auto" height="100%" pr={2}>
-          <News news={newsData} />
+          <News news={newsData} onNewsClick={onOpen} />
         </Box>
         <VStack overflowY="auto" height="100%" spacing={6} align="stretch">
           <Box height="250px" width="100%">
@@ -550,6 +552,8 @@ export default function Analysis() {
           <Metrics data={metricsData} />
         </VStack>
       </Grid>
+
+      <NewsDrawer isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 }

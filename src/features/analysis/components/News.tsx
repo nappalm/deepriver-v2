@@ -26,6 +26,7 @@ interface NewsItem {
 
 interface NewsProps {
   news: NewsItem[];
+  onNewsClick?: () => void;
 }
 
 const NewsCard: React.FC<{
@@ -33,7 +34,8 @@ const NewsCard: React.FC<{
   isLarge?: boolean;
   isFeatured?: boolean;
   index: number;
-}> = ({ item, isLarge = false, isFeatured = false, index }) => {
+  onClick?: () => void;
+}> = ({ item, isLarge = false, isFeatured = false, index, onClick }) => {
   const bg = useColorModeValue("#ffffff", "#0A0A0A");
   const textColor = useColorModeValue("gray.900", "white");
   const descColor = useColorModeValue("gray.600", "whiteAlpha.700");
@@ -64,6 +66,7 @@ const NewsCard: React.FC<{
       role="group"
       border="1px solid"
       borderColor={borderColor}
+      onClick={onClick}
     >
       {isFeatured ? (
         <>
@@ -232,7 +235,7 @@ const NewsCard: React.FC<{
   );
 };
 
-const News: React.FC<NewsProps> = ({ news }) => {
+const News: React.FC<NewsProps> = ({ news, onNewsClick }) => {
   return (
     <VStack spacing={0} align="stretch">
       <Heading size="md" mb={4}>
@@ -248,6 +251,7 @@ const News: React.FC<NewsProps> = ({ news }) => {
               isLarge={isFeatured}
               isFeatured={isFeatured}
               index={index}
+              onClick={onNewsClick}
             />
           );
         })}
