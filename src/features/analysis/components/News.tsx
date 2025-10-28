@@ -31,233 +31,129 @@ interface NewsProps {
 
 const NewsCard: React.FC<{
   item: NewsItem;
-  isLarge?: boolean;
-  isFeatured?: boolean;
-  index: number;
   onClick?: () => void;
-}> = ({ item, isLarge = false, isFeatured = false, index, onClick }) => {
-  const bg = useColorModeValue("#ffffff", "#0A0A0A");
-  const textColor = useColorModeValue("gray.900", "white");
-  const descColor = useColorModeValue("gray.600", "whiteAlpha.700");
-  const metaColor = useColorModeValue("gray.500", "whiteAlpha.600");
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
-  const badgeBg = useColorModeValue("gray.100", "whiteAlpha.200");
-  const badgeBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
-  const iconBg = useColorModeValue("gray.100", "whiteAlpha.200");
-  const iconBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
-  const iconHoverBg = useColorModeValue("gray.200", "whiteAlpha.300");
-  const gradientBg = useColorModeValue(
-    "linear(to-t, #ffffff, rgba(255,255,255,0.95), rgba(255,255,255,0.85), rgba(255,255,255,0.6), rgba(255,255,255,0.3), transparent)",
-    "linear(to-t, #0A0A0A, rgba(10,10,10,0.95), rgba(10,10,10,0.85), rgba(10,10,10,0.6), rgba(10,10,10,0.3), transparent)",
-  );
+}> = ({ item, onClick }) => {
+  const colors = {
+    bg: useColorModeValue("#ffffff", "#0A0A0A"),
+    text: useColorModeValue("gray.900", "white"),
+    desc: useColorModeValue("gray.600", "whiteAlpha.700"),
+    meta: useColorModeValue("gray.500", "whiteAlpha.600"),
+    border: useColorModeValue("gray.200", "whiteAlpha.200"),
+    badge: useColorModeValue("gray.100", "whiteAlpha.200"),
+    badgeBorder: useColorModeValue("gray.300", "whiteAlpha.300"),
+    iconHover: useColorModeValue("gray.200", "whiteAlpha.300"),
+    hoverBg: useColorModeValue("#f9f9f9", "#111"),
+  };
 
   return (
     <Card
-      bg={bg}
-      color={textColor}
+      bg={colors.bg}
+      color={colors.text}
       overflow="hidden"
       position="relative"
       cursor="pointer"
       transition="all 0.3s ease"
       _hover={{
-        transform: "translateY(-4px)",
+        transform: "translateY(-2px)",
+        shadow: "lg",
+        bg: colors.hoverBg,
       }}
-      height="100%"
       role="group"
       border="1px solid"
-      borderColor={borderColor}
+      borderColor={colors.border}
       onClick={onClick}
     >
-      {isFeatured ? (
-        <>
-          <IconButton
-            size="sm"
-            aria-label="Bookmark"
-            icon={<IconBookmarkFilled size={16} />}
-            position="absolute"
-            right={3}
-            top={3}
-            zIndex={3}
-            bg={iconBg}
-            backdropFilter="blur(10px)"
-            color={textColor}
-            border="1px solid"
-            borderColor={iconBorderColor}
-            _hover={{
-              bg: iconHoverBg,
-            }}
-          />
-          <Box position="absolute" top={0} left={0} right={0} bottom={0}>
-            <Image
-              src={item.image}
-              alt={item.title}
-              width="100%"
-              height="100%"
-              objectFit="cover"
-              transition="all 0.3s ease"
-              opacity={0.7}
-              _groupHover={{
-                opacity: 1,
-              }}
-            />
-            <Box
-              position="absolute"
-              top={0}
-              left={0}
-              right={0}
-              bottom={0}
-              bgGradient={gradientBg}
-            />
-            <Badge
-              position="absolute"
-              top={3}
-              left={3}
-              bg={badgeBg}
-              backdropFilter="blur(10px)"
-              color={textColor}
-              fontSize="xs"
-              px={3}
-              py={1}
-              border="1px solid"
-              borderColor={badgeBorderColor}
-              zIndex={2}
-            >
-              {item.type}
-            </Badge>
-          </Box>
-          <CardBody
-            p={4}
-            position="relative"
-            zIndex={1}
-            display="flex"
-            flexDirection="column"
-            justifyContent="flex-end"
-            minHeight={isLarge ? "300px" : "250px"}
-          >
-            <Heading size={isLarge ? "lg" : "md"} mb={2} color={textColor}>
-              {item.title}
-            </Heading>
-            <Text color={descColor} fontSize="sm" mb={2} noOfLines={2}>
-              {item.description}
-            </Text>
-            {item.date && (
-              <Text fontSize="xs" color={metaColor}>
-                {item.date}
-              </Text>
-            )}
-          </CardBody>
-        </>
-      ) : (
-        <CardBody p={4}>
-          <IconButton
-            size="sm"
-            aria-label="Bookmark"
-            icon={<IconBookmarkFilled size={16} />}
-            position="absolute"
-            right={3}
-            top={3}
-            zIndex={2}
-            bg={iconBg}
-            backdropFilter="blur(10px)"
-            color={textColor}
-            border="1px solid"
-            borderColor={iconBorderColor}
-            _hover={{
-              bg: iconHoverBg,
-            }}
-          />
-          <Flex direction="column" height="100%" justify="space-between">
-            <Box>
-              <Flex justify="space-between" align="flex-start" mb={3}>
-                <Heading size="sm" flex="1" noOfLines={2} color={textColor}>
-                  {item.title}
-                </Heading>
-              </Flex>
+      <CardBody p={2}>
+        <Flex gap={2} align="flex-start">
+          <Box flex={1} minW={0}>
+            <Flex align="center" gap={1.5} mb={1}>
               <Badge
-                bg={badgeBg}
-                backdropFilter="blur(10px)"
-                color={textColor}
-                mb={2}
-                fontSize="xs"
+                bg={colors.badge}
+                color={colors.text}
+                fontSize="2xs"
+                px={1.5}
+                py={0.5}
                 border="1px solid"
-                borderColor={badgeBorderColor}
+                borderColor={colors.badgeBorder}
+                flexShrink={0}
               >
                 {item.type}
               </Badge>
-              <Text color={descColor} fontSize="sm" mb={2} noOfLines={3}>
-                {item.description}
-              </Text>
-            </Box>
-            <Flex justify="space-between" align="center">
               {item.date && (
-                <Text fontSize="xs" color={metaColor}>
+                <Text fontSize="2xs" color={colors.meta} flexShrink={0}>
                   {item.date}
                 </Text>
               )}
-              <Box
-                width="60px"
-                height="60px"
-                borderRadius="md"
-                overflow="hidden"
-                flexShrink={0}
-                border="1px solid"
-                borderColor={borderColor}
-              >
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  width="100%"
-                  height="100%"
-                  objectFit="cover"
-                  opacity={0.7}
-                  transition="all 0.3s ease"
-                  _groupHover={{
-                    transform: "scale(1.1)",
-                    opacity: 1,
-                  }}
-                />
-              </Box>
             </Flex>
-          </Flex>
-        </CardBody>
-      )}
+            <Heading size="sm" mb={1} noOfLines={1} fontSize="sm">
+              {item.title}
+            </Heading>
+            <Text color={colors.desc} fontSize="2xs" noOfLines={1}>
+              {item.description}
+            </Text>
+          </Box>
+          <Box
+            w="45px"
+            h="45px"
+            borderRadius="md"
+            overflow="hidden"
+            flexShrink={0}
+            border="1px solid"
+            borderColor={colors.border}
+          >
+            <Image
+              src={item.image}
+              alt={item.title}
+              w="100%"
+              h="100%"
+              objectFit="cover"
+              opacity={0.7}
+              transition="all 0.2s ease"
+              _groupHover={{ transform: "scale(1.1)", opacity: 1 }}
+            />
+          </Box>
+          <IconButton
+            size="xs"
+            aria-label="Bookmark"
+            icon={<IconBookmarkFilled size={12} />}
+            position="absolute"
+            right={1.5}
+            top={1.5}
+            zIndex={2}
+            bg={colors.badge}
+            backdropFilter="blur(10px)"
+            color={colors.text}
+            border="1px solid"
+            borderColor={colors.badgeBorder}
+            _hover={{ bg: colors.iconHover }}
+          />
+        </Flex>
+      </CardBody>
       <Box
         position="absolute"
-        top="-20px"
-        right="-20px"
-        width="120px"
-        height="120px"
+        top="-10px"
+        right="-10px"
+        width="60px"
+        height="60px"
         bg="whiteAlpha.100"
         borderRadius="full"
-        filter="blur(40px)"
+        filter="blur(20px)"
       />
     </Card>
   );
 };
 
-const News: React.FC<NewsProps> = ({ news, onNewsClick }) => {
-  return (
-    <VStack spacing={0} align="stretch">
-      <Heading size="md" mb={4}>
-        Noticias
-      </Heading>
-      <VStack spacing={3} align="stretch">
-        {news.map((item, index) => {
-          const isFeatured = index === 0;
-          return (
-            <NewsCard
-              key={item.id}
-              item={item}
-              isLarge={isFeatured}
-              isFeatured={isFeatured}
-              index={index}
-              onClick={onNewsClick}
-            />
-          );
-        })}
-      </VStack>
+const News: React.FC<NewsProps> = ({ news, onNewsClick }) => (
+  <VStack spacing={0} align="stretch">
+    <Heading size="sm" mb={2}>
+      Noticias
+    </Heading>
+    <VStack spacing={1.5} align="stretch">
+      {news.map((item) => (
+        <NewsCard key={item.id} item={item} onClick={onNewsClick} />
+      ))}
     </VStack>
-  );
-};
+  </VStack>
+);
 
 export default News;
