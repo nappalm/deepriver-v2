@@ -528,7 +528,7 @@ export default function Analysis() {
         <Filters onFiltersChange={handleFiltersChange} />
       </HStack>
       <Grid
-        templateColumns={{ base: "1fr", lg: "2fr 1.5fr 1fr" }}
+        templateColumns={{ base: "1fr", lg: "1.5fr 1.2fr 1.4fr" }}
         gap={6}
         height="calc(100vh - 169px)"
       >

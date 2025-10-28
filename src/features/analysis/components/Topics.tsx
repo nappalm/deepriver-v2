@@ -66,16 +66,16 @@ const TopicCard: React.FC<{
       borderColor={borderColor}
       onClick={onClick}
     >
-      <Box position="absolute" left={3} top={3} color="red.400" zIndex={2}>
-        <IconFlameFilled size={18} />
+      <Box position="absolute" left={2} top={2} color="red.400" zIndex={2}>
+        <IconFlameFilled size={14} />
       </Box>
       <IconButton
-        size="sm"
+        size="xs"
         aria-label="Bookmark"
-        icon={<IconBookmarkFilled size={16} />}
+        icon={<IconBookmarkFilled size={12} />}
         position="absolute"
-        right={3}
-        top={3}
+        right={2}
+        top={2}
         zIndex={2}
         bg={iconBg}
         backdropFilter="blur(10px)"
@@ -109,38 +109,39 @@ const TopicCard: React.FC<{
         />
       </Box>
       <CardBody
-        p={4}
+        p={3}
         position="relative"
         zIndex={1}
         display="flex"
         flexDirection="column"
         justifyContent="flex-end"
-        minHeight={isLarge ? "300px" : "220px"}
+        minHeight={isLarge ? "200px" : "150px"}
       >
-        <Flex justify="space-between" align="flex-start" mb={2}>
+        <Flex justify="space-between" align="flex-start" mb={1}>
           <Heading
-            size={isLarge ? "md" : "sm"}
+            size={isLarge ? "sm" : "xs"}
             flex="1"
             letterSpacing="tight"
             color={textColor}
             noOfLines={2}
+            fontSize={isLarge ? "md" : "sm"}
           >
             {topic.title}
           </Heading>
         </Flex>
         <Text
           color={descColor}
-          fontSize="sm"
-          mb={2}
-          noOfLines={isLarge ? 3 : 2}
+          fontSize={isLarge ? "sm" : "xs"}
+          mb={1}
+          noOfLines={isLarge ? 2 : 1}
         >
           {topic.description}
         </Text>
         <Flex justify="space-between" align="center">
-          <Text fontSize="xs" color={metaColor} fontWeight="medium">
+          <Text fontSize="2xs" color={metaColor} fontWeight="medium">
             {topic.newsCount} {topic.newsCount === 1 ? "noticia" : "noticias"}
           </Text>
-          <Text fontSize="xs" color={metaColor}>
+          <Text fontSize="2xs" color={metaColor}>
             13 Junio
           </Text>
         </Flex>
@@ -162,12 +163,12 @@ const TopicCard: React.FC<{
 const Topics: React.FC<TopicsProps> = ({ topics, onTopicClick }) => {
   return (
     <VStack align="start">
-      <Heading size="md" mb={4}>
+      <Heading size="sm" mb={2}>
         Temas destacados
       </Heading>
       <Grid
-        templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
-        gap={3}
+        templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
+        gap={2}
         width="100%"
       >
         {topics.length > 0 && (
