@@ -23,7 +23,7 @@ import {
   IconShare,
 } from "@tabler/icons-react";
 import Chart from "../components/Chart";
-import Filters from "../components/Filters";
+import FilterInLine from "../components/FilterInLine";
 import Map from "../components/Map";
 import Metrics from "../components/Metrics";
 import News from "../components/News";
@@ -544,6 +544,7 @@ export default function Analysis() {
 
   const handleFiltersChange = (filters: any) => {
     console.log("Filters changed:", filters);
+    // Los filtros vienen en formato: [{ key: "tipo", label: "Tipo de evento", value: "Gobierno" }]
     // Aquí puedes implementar la lógica de filtrado
   };
 
@@ -558,18 +559,13 @@ export default function Analysis() {
         borderColor="whiteAlpha.200"
       >
         <HStack justify="space-between">
-          <HStack gap={2}>
+          <HStack gap={2} flex={1}>
             <Heading fontSize="lg" mr={5}>
               Analysis
             </Heading>
-            <Filters onFiltersChange={handleFiltersChange} />
-            <Button
-              size="sm"
-              colorScheme="blue"
-              leftIcon={<IconBookmarkFilled size={16} />}
-            >
-              Guardar busqueda
-            </Button>
+            <Box flex={1} maxW="100%">
+              <FilterInLine onFiltersChange={handleFiltersChange} />
+            </Box>
           </HStack>
           <HStack gap={2}>
             <IconButton

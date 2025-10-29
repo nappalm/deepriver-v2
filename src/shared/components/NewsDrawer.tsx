@@ -100,7 +100,7 @@ const NewsDrawer: React.FC<NewsDrawerProps> = ({ isOpen, onClose }) => {
                 bottom={0}
                 bgGradient={useColorModeValue(
                   "linear(to-t, rgba(255,255,255,0.85), rgba(255,255,255,0.5), rgba(255,255,255,0.2), transparent)",
-                  "linear(to-t, rgba(10,10,10,0.85), rgba(10,10,10,0.5), rgba(10,10,10,0.2), transparent)"
+                  "linear(to-t, rgba(10,10,10,0.85), rgba(10,10,10,0.5), rgba(10,10,10,0.2), transparent)",
                 )}
               />
             </Box>
@@ -165,12 +165,7 @@ const NewsDrawer: React.FC<NewsDrawerProps> = ({ isOpen, onClose }) => {
 
               {/* Tags */}
               <Box>
-                <Text
-                  fontSize="sm"
-                  fontWeight="bold"
-                  mb={2}
-                  color={textColor}
-                >
+                <Text fontSize="sm" fontWeight="bold" mb={2} color={textColor}>
                   Etiquetas
                 </Text>
                 <Flex gap={2} flexWrap="wrap">

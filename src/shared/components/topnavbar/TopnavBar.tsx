@@ -39,7 +39,6 @@ export default function Topnavbar() {
       backdropFilter="blur(10px)"
       position="sticky"
       top={0}
-      zIndex={100}
     >
       <HStack>
         <Link to="/">
