@@ -539,10 +539,10 @@ export default function Analysis() {
           <News news={newsData} onNewsClick={onOpen} />
         </Box>
         <VStack overflowY="auto" height="100%" spacing={6} align="stretch">
-          <Box height="250px" width="100%">
+          <Box height="400px" width="100%">
             <Map locations={mapLocations} />
           </Box>
-          <Box height="180px" width="100%">
+          <Box height="170px" width="100%">
             <Chart
               data={chartData}
               title="Tendencias temporales"
