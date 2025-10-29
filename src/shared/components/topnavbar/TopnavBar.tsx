@@ -5,10 +5,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import {
-  IconCalendarFilled,
-  IconChartPieFilled,
   IconArticleFilled,
   IconChartAreaFilled,
+  IconChartPieFilled,
   IconFolderFilled,
   IconTimelineEventFilled,
 } from "@tabler/icons-react";
@@ -82,9 +81,9 @@ export default function Topnavbar() {
             to="/analysis"
             size="sm"
             leftIcon={<IconChartPieFilled size={16} />}
-            variant="ghost"
-            color={isActive("/analysis") ? activeColor : inactiveColor}
-            bg={isActive("/analysis") ? activeBg : "transparent"}
+            variant="outline"
+            color={isActive("/analysis") ? "blue.200" : inactiveColor}
+            borderColor={isActive("/analysis") ? "blue.500" : "transparent"}
             _hover={{
               bg: hoverBg,
               color: activeColor,

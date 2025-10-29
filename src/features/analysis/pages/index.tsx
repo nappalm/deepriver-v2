@@ -1,11 +1,33 @@
-import { Grid, Box, VStack, Heading, Stack, HStack, useDisclosure } from "@chakra-ui/react";
-import Topics from "../components/Topics";
-import News from "../components/News";
-import Metrics from "../components/Metrics";
-import Map from "../components/Map";
+import NewsDrawer from "@/shared/components/NewsDrawer";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Heading,
+  HStack,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
+import {
+  IconBookmark,
+  IconBookmarkFilled,
+  IconFileExcel,
+  IconPackageExport,
+  IconPdf,
+  IconShare,
+} from "@tabler/icons-react";
 import Chart from "../components/Chart";
 import Filters from "../components/Filters";
-import NewsDrawer from "@/shared/components/NewsDrawer";
+import Map from "../components/Map";
+import Metrics from "../components/Metrics";
+import News from "../components/News";
+import Topics from "../components/Topics";
 
 export default function Analysis() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -506,14 +528,18 @@ export default function Analysis() {
 
   // Datos de ejemplo para Chart
   const chartData = [
-    { name: "00h", value: 12 },
-    { name: "03h", value: 8 },
-    { name: "06h", value: 15 },
-    { name: "09h", value: 45 },
-    { name: "12h", value: 62 },
-    { name: "15h", value: 58 },
-    { name: "18h", value: 48 },
-    { name: "21h", value: 35 },
+    { name: "12:00am", value: 12 },
+    { name: "02:00am", value: 8 },
+    { name: "04:00am", value: 6 },
+    { name: "06:00am", value: 15 },
+    { name: "08:00am", value: 32 },
+    { name: "10:00am", value: 45 },
+    { name: "12:00pm", value: 62 },
+    { name: "02:00pm", value: 58 },
+    { name: "04:00pm", value: 54 },
+    { name: "06:00pm", value: 48 },
+    { name: "08:00pm", value: 40 },
+    { name: "10:00pm", value: 35 },
   ];
 
   const handleFiltersChange = (filters: any) => {
@@ -523,37 +549,86 @@ export default function Analysis() {
 
   return (
     <Box overflow="hidden">
-      <HStack gap={5} mb={5}>
-        <Heading variant="titleUnderline">Analysis</Heading>
-        <Filters onFiltersChange={handleFiltersChange} />
-      </HStack>
-      <Grid
-        templateColumns={{ base: "1fr", lg: "1.5fr 1.2fr 1.4fr" }}
-        gap={6}
-        height="calc(100vh - 169px)"
+      <Container
+        maxW="full"
+        bg="#0a0a0a"
+        mb={5}
+        py={5}
+        borderBottom="1px solid"
+        borderColor="whiteAlpha.200"
       >
-        <Box overflowY="auto" overflowX="hidden" pr={2} height="100%">
-          <Topics topics={topicsData} onTopicClick={onOpen} />
-        </Box>
-        <Box overflowY="auto" height="100%" pr={2}>
-          <News news={newsData} onNewsClick={onOpen} />
-        </Box>
-        <VStack overflowY="auto" height="100%" spacing={6} align="stretch">
-          <Box height="400px" width="100%">
-            <Map locations={mapLocations} />
-          </Box>
-          <Box height="170px" width="100%">
-            <Chart
-              data={chartData}
-              title="Tendencias temporales"
-              color="#3b82f6"
+        <HStack justify="space-between">
+          <HStack gap={2}>
+            <Heading fontSize="lg" mr={5}>
+              Analysis
+            </Heading>
+            <Filters onFiltersChange={handleFiltersChange} />
+            <Button
+              size="sm"
+              colorScheme="blue"
+              leftIcon={<IconBookmarkFilled size={16} />}
+            >
+              Guardar busqueda
+            </Button>
+          </HStack>
+          <HStack gap={2}>
+            <IconButton
+              size="sm"
+              aria-label="Share"
+              icon={<IconBookmark size={16} />}
             />
-          </Box>
-          <Metrics data={metricsData} />
-        </VStack>
-      </Grid>
 
-      <NewsDrawer isOpen={isOpen} onClose={onClose} />
+            <IconButton
+              size="sm"
+              aria-label="Share"
+              icon={<IconShare size={16} />}
+            />
+            <Menu>
+              <MenuButton
+                size="sm"
+                as={Button}
+                leftIcon={<IconPackageExport size={16} />}
+              >
+                Exportar
+              </MenuButton>
+              <MenuList>
+                <MenuItem icon={<IconFileExcel size={16} />}>Excel</MenuItem>
+                <MenuItem icon={<IconPdf size={16} />}>PDF</MenuItem>
+              </MenuList>
+            </Menu>
+          </HStack>
+        </HStack>
+      </Container>
+      <Container maxW="full">
+        <Grid
+          templateColumns={{ base: "1fr", lg: "1.5fr 1.2fr 1.4fr" }}
+          gap={6}
+          height="calc(100vh - 169px)"
+        >
+          <Box overflowY="auto" overflowX="hidden" pr={2} height="100%">
+            <Topics topics={topicsData} onTopicClick={onOpen} />
+          </Box>
+          <Box overflowY="auto" height="100%" pr={2}>
+            <News news={newsData} onNewsClick={onOpen} />
+          </Box>
+          <VStack overflowY="auto" height="100%" spacing={6} align="stretch">
+            <Box height="400px" width="100%">
+              <Map locations={mapLocations} />
+            </Box>
+
+            <Metrics data={metricsData} />
+            <Box height="130px" width="100%">
+              <Chart
+                data={chartData}
+                title="Tendencias temporales"
+                color="#3b82f6"
+              />
+            </Box>
+          </VStack>
+        </Grid>
+
+        <NewsDrawer isOpen={isOpen} onClose={onClose} />
+      </Container>
     </Box>
   );
 }

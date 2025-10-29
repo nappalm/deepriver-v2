@@ -129,49 +129,36 @@ const Metrics: React.FC<MetricsProps> = ({ data }) => {
   };
 
   return (
-    <VStack align="start" spacing={4}>
-      <Heading size="md">Métricas de Análisis</Heading>
-      <Grid
-        templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
-        gap={3}
-        height={{ base: "auto", md: "300px" }}
-        width="100%"
-      >
-        <Box gridColumn={{ base: "span 2", md: "span 2" }}>
-          <MetricCard
-            icon={IconFileText}
-            label="Documentos"
-            value={formatNumber(data.documents)}
-            iconColor="blue.400"
-          />
-        </Box>
-        <Box gridColumn={{ base: "span 2", md: "span 2" }}>
-          <MetricCard
-            icon={IconCurrencyDollar}
-            label="Valuación"
-            value={formatCurrency(data.valuationMXN)}
-            iconColor="purple.400"
-            isLarge={true}
-          />
-        </Box>
-        <Box gridColumn={{ base: "span 1", md: "span 1" }}>
-          <MetricCard
-            icon={IconThumbUp}
-            label="Likes"
-            value={formatNumber(data.likes)}
-            iconColor="green.400"
-          />
-        </Box>
-        <Box gridColumn={{ base: "span 1", md: "span 1" }}>
-          <MetricCard
-            icon={IconUser}
-            label="Autores"
-            value={formatNumber(data.authors)}
-            iconColor="orange.400"
-          />
-        </Box>
-      </Grid>
-    </VStack>
+    <Grid
+      templateColumns={{ base: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
+      gap={4}
+      width="100%"
+    >
+      <MetricCard
+        icon={IconFileText}
+        label="Documentos"
+        value={formatNumber(data.documents)}
+        iconColor="blue.400"
+      />
+      <MetricCard
+        icon={IconThumbUp}
+        label="Likes"
+        value={formatNumber(data.likes)}
+        iconColor="green.400"
+      />
+      <MetricCard
+        icon={IconUser}
+        label="Autores"
+        value={formatNumber(data.authors)}
+        iconColor="orange.400"
+      />
+      <MetricCard
+        icon={IconCurrencyDollar}
+        label="Valuación"
+        value={formatCurrency(data.valuationMXN)}
+        iconColor="purple.400"
+      />
+    </Grid>
   );
 };
 
