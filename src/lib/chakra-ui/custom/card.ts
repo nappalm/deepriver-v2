@@ -51,12 +51,13 @@ const outlineVariant = definePartsStyle((props) => ({
 
 const elevatedVariant = definePartsStyle((props) => ({
   container: {
-    bg: mode("#ffffff", "#0A0A0A")(props),
+    bg: mode("gray.50", "#0A0A0A")(props),
     overflow: "hidden",
     position: "relative",
     transition: "all 0.3s ease",
     borderWidth: "1px",
     borderColor: mode("gray.200", "whiteAlpha.200")(props),
+    shadow: "sm",
     _hover: {
       transform: "translateY(-2px)",
       shadow: "lg",
@@ -69,7 +70,7 @@ const elevatedVariant = definePartsStyle((props) => ({
       right: "-10px",
       width: "60px",
       height: "60px",
-      bg: "whiteAlpha.100",
+      bg: mode("blackAlpha.100", "whiteAlpha.100")(props),
       borderRadius: "full",
       filter: "blur(20px)",
       pointerEvents: "none",

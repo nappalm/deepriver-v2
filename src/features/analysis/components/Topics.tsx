@@ -3,7 +3,6 @@ import {
   Card,
   CardBody,
   Flex,
-  Grid,
   Heading,
   IconButton,
   Image,
@@ -44,16 +43,16 @@ const TopicCard = ({
       position="relative"
       onClick={onClick}
     >
-      <Box position="absolute" left={2} top={2} color="red.400" zIndex={2}>
-        <IconFlameFilled size={14} />
+      <Box position="absolute" left={1.5} top={1.5} color="red.400" zIndex={2}>
+        <IconFlameFilled size={12} />
       </Box>
       <IconButton
         size="xs"
         aria-label="Bookmark"
-        icon={<IconBookmarkFilled size={12} />}
+        icon={<IconBookmarkFilled size={10} />}
         position="absolute"
-        right={2}
-        top={2}
+        right={1.5}
+        top={1.5}
         zIndex={2}
         bg={iconBg}
         backdropFilter="blur(10px)"
@@ -87,31 +86,31 @@ const TopicCard = ({
         />
       </Box>
       <CardBody
-        p={3}
+        p={2}
         position="relative"
         zIndex={1}
         display="flex"
         flexDirection="column"
         justifyContent="flex-end"
-        minHeight={isLarge ? "200px" : "150px"}
+        minHeight={isLarge ? "140px" : "140px"}
       >
-        <Flex justify="space-between" align="flex-start" mb={1}>
+        <Flex justify="space-between" align="flex-start" mb={0.5}>
           <Heading
-            size={isLarge ? "sm" : "xs"}
+            size="xs"
             flex="1"
             letterSpacing="tight"
             color={textColor}
             noOfLines={2}
-            fontSize={isLarge ? "md" : "sm"}
+            fontSize={isLarge ? "sm" : "xs"}
           >
             {topic.title}
           </Heading>
         </Flex>
         <Text
           color={descColor}
-          fontSize={isLarge ? "sm" : "xs"}
-          mb={1}
-          noOfLines={isLarge ? 2 : 1}
+          fontSize="xs"
+          mb={0.5}
+          noOfLines={1}
         >
           {topic.description}
         </Text>
@@ -120,7 +119,7 @@ const TopicCard = ({
             {topic.newsCount} {topic.newsCount === 1 ? "noticia" : "noticias"}
           </Text>
           <Text fontSize="2xs" color={metaColor}>
-            13 Junio
+            13 Jun
           </Text>
         </Flex>
       </CardBody>
@@ -129,26 +128,42 @@ const TopicCard = ({
 };
 
 const Topics = ({ topics, onTopicClick }: TopicsProps) => (
-  <VStack align="start">
+  <VStack align="start" width="100%">
     <Heading size="sm" mb={2}>
       Temas destacados
     </Heading>
-    <Grid
-      templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
-      gap={2}
+    <Box
       width="100%"
+      overflowX="auto"
+      css={{
+        "&::-webkit-scrollbar": {
+          height: "6px",
+        },
+        "&::-webkit-scrollbar-track": {
+          background: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "rgba(255, 255, 255, 0.2)",
+          borderRadius: "3px",
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          background: "rgba(255, 255, 255, 0.3)",
+        },
+      }}
     >
-      {topics.length > 0 && (
-        <Box gridColumn={{ base: "span 1", md: "span 2" }}>
-          <TopicCard topic={topics[0]} isLarge={true} onClick={onTopicClick} />
-        </Box>
-      )}
-      {topics.slice(1).map((topic) => (
-        <Box key={topic.id} gridColumn="span 1">
-          <TopicCard topic={topic} onClick={onTopicClick} />
-        </Box>
-      ))}
-    </Grid>
+      <Flex gap={2} pb={2}>
+        {topics.length > 0 && (
+          <Box minW="240px" maxW="240px" h="140px">
+            <TopicCard topic={topics[0]} isLarge={true} onClick={onTopicClick} />
+          </Box>
+        )}
+        {topics.slice(1).map((topic) => (
+          <Box key={topic.id} minW="200px" maxW="200px" h="140px">
+            <TopicCard topic={topic} onClick={onTopicClick} />
+          </Box>
+        ))}
+      </Flex>
+    </Box>
   </VStack>
 );
 

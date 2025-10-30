@@ -53,16 +53,16 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
-  const bg = useColorModeValue("#ffffff", "#0A0A0A");
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
+  // Color mode values
   const inputBg = useColorModeValue("gray.50", "whiteAlpha.100");
-  const textColor = useColorModeValue("gray.900", "white");
-  const placeholderColor = useColorModeValue("gray.500", "whiteAlpha.600");
-  const suggestionBg = useColorModeValue("#ffffff", "#1A1A1A");
+  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
+  const suggestionBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.9)",
+    "rgba(20, 20, 20, 0.9)",
+  );
   const suggestionHoverBg = useColorModeValue("gray.100", "whiteAlpha.200");
   const suggestionSelectedBg = useColorModeValue("blue.100", "blue.900");
-  const tagBg = useColorModeValue("blue.50", "blue.900");
-  const tagColor = useColorModeValue("blue.700", "blue.100");
+  const secondaryTextColor = useColorModeValue("gray.500", "whiteAlpha.600");
 
   // Obtener el tipo seleccionado de los filtros actuales
   const getSelectedTipo = (): string | null => {
@@ -455,13 +455,11 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
           onFocus={() => setShowSuggestions(true)}
           border="none"
           bg="transparent"
-          color={textColor}
           flex={1}
           minW="120px"
           p={0}
           height="auto"
           borderRadius={0}
-          _placeholder={{ color: placeholderColor }}
           _focus={{
             boxShadow: "none",
             outline: "none",
@@ -509,6 +507,7 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
                 : "auto"
             }
             bg={suggestionBg}
+            backdropFilter="blur(10px)"
             border="1px solid"
             borderColor={borderColor}
             borderRadius="lg"
@@ -536,26 +535,24 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
                 >
                   {suggestion.type === "filter" ? (
                     <Box>
-                      <Text fontSize="sm" fontWeight="medium" color={textColor}>
-                        {(suggestion.data as FilterOption).key}:
+                      <Text fontSize="sm" fontWeight="medium">
+                        {(suggestion.data as FilterOption).label}:
                       </Text>
-                      <Text fontSize="xs" color={placeholderColor}>
+                      <Text fontSize="xs" color={secondaryTextColor}>
                         {(suggestion.data as FilterOption).description}
                       </Text>
                     </Box>
                   ) : suggestion.type === "search" ? (
                     <Box>
-                      <Text fontSize="sm" fontWeight="medium" color={textColor}>
+                      <Text fontSize="sm" fontWeight="medium">
                         Buscar por este texto
                       </Text>
-                      <Text fontSize="xs" color={placeholderColor}>
+                      <Text fontSize="xs" color={secondaryTextColor}>
                         "{suggestion.data as string}"
                       </Text>
                     </Box>
                   ) : (
-                    <Text fontSize="sm" color={textColor}>
-                      {suggestion.data as string}
-                    </Text>
+                    <Text fontSize="sm">{suggestion.data as string}</Text>
                   )}
                 </ListItem>
               ))}

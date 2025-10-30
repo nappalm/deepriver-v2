@@ -2,32 +2,24 @@ import NewsDrawer from "@/shared/components/NewsDrawer";
 import {
   Box,
   Button,
+  ButtonGroup,
   Container,
   Grid,
   Heading,
   HStack,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
+  useColorModeValue,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import {
-  IconFileExcel,
-  IconPackageExport,
-  IconPdf,
-  IconShare,
-} from "@tabler/icons-react";
 import BookmarksMenu from "../components/BookmarksMenu";
 import Chart from "../components/Chart";
 import FilterInLine from "../components/FilterInLine";
 import Map from "../components/Map";
 import Metrics from "../components/Metrics";
 import News from "../components/News";
+import ExportModal from "../components/ExportModal";
+import TableMetrics from "../components/TableMetrics";
 import Topics from "../components/Topics";
-import ShareModal from "../components/ExportModal";
 
 export default function Analysis() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -548,15 +540,17 @@ export default function Analysis() {
     // Aquí puedes implementar la lógica de filtrado
   };
 
+  const bg = useColorModeValue("#ffffff", "#0A0A0A");
+  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
   return (
     <Box overflow="hidden">
       <Container
         maxW="full"
-        bg="#0a0a0a"
+        bg={bg}
         mb={5}
         py={5}
         borderBottom="1px solid"
-        borderColor="whiteAlpha.200"
+        borderColor={borderColor}
       >
         <HStack justify="space-between">
           <HStack gap={2} flex={1}>
@@ -569,39 +563,86 @@ export default function Analysis() {
           </HStack>
           <HStack gap={2}>
             <BookmarksMenu />
-            <IconButton
-              size="sm"
-              aria-label="Share"
-              icon={<IconShare size={16} />}
-            />
-            <ShareModal />
+            <ExportModal />
           </HStack>
         </HStack>
       </Container>
       <Container maxW="full">
         <Grid
-          templateColumns={{ base: "1fr", lg: "1.5fr 1.2fr 1.4fr" }}
+          templateColumns={{ base: "1fr", lg: "2.3fr 0.7fr" }}
           gap={6}
           height="calc(100vh - 169px)"
         >
-          <Box overflowY="auto" overflowX="hidden" pr={2} height="100%">
-            <Topics topics={topicsData} onTopicClick={onOpen} />
-          </Box>
-          <Box overflowY="auto" height="100%" pr={2}>
-            <News news={newsData} onNewsClick={onOpen} />
-          </Box>
-          <VStack overflowY="auto" height="100%" spacing={6} align="stretch">
-            <Box height="400px" width="100%">
-              <Map locations={mapLocations} />
+          {/* Columna 1: Topics + News */}
+          <VStack spacing={4} align="stretch" height="100%" overflow="hidden">
+            {/* Fila 1: Topics horizontal */}
+            <Box flexShrink={0}>
+              <Topics topics={topicsData} onTopicClick={onOpen} />
             </Box>
 
-            <Metrics data={metricsData} />
-            <Box height="130px" width="100%">
-              <Chart
-                data={chartData}
-                title="Tendencias temporales"
-                color="#3b82f6"
-              />
+            {/* Fila 2: Grid con News y espacio vacío */}
+            <Grid
+              templateColumns="repeat(2, 1fr)"
+              gap={4}
+              flex="1"
+              overflow="hidden"
+            >
+              <Box overflowY="auto" pr={2}>
+                <News news={newsData} onNewsClick={onOpen} />
+              </Box>
+              <Box pr={2} height="100%">
+                <VStack spacing={3} align="stretch" height="100%">
+                  <Box height="130px" width="100%" flexShrink={0}>
+                    <Chart
+                      data={chartData}
+                      title="Tendencias temporales"
+                      color="#3b82f6"
+                    />
+                  </Box>
+                  <Box flexShrink={0}>
+                    <Metrics data={metricsData} />
+                  </Box>
+                  <ButtonGroup
+                    size="sm"
+                    spacing={0}
+                    width="100%"
+                    flexShrink={0}
+                  >
+                    <Button borderRightRadius={0} flex="1">
+                      Personas
+                    </Button>
+                    <Button
+                      borderLeftRadius={0}
+                      borderRightRadius={0}
+                      variant="outline"
+                      flex="1"
+                    >
+                      Organizaciones
+                    </Button>
+                    <Button
+                      borderLeftRadius={0}
+                      borderRightRadius={0}
+                      variant="outline"
+                      flex="1"
+                    >
+                      Hashtags
+                    </Button>
+                    <Button borderLeftRadius={0} variant="outline" flex="1">
+                      Otros
+                    </Button>
+                  </ButtonGroup>
+                  <Box flex="1" minH="0">
+                    <TableMetrics />
+                  </Box>
+                </VStack>
+              </Box>
+            </Grid>
+          </VStack>
+
+          {/* Columna 2: Map, Metrics, Chart */}
+          <VStack overflowY="auto" height="100%" spacing={6} align="stretch">
+            <Box height="100%" width="100%">
+              <Map locations={mapLocations} />
             </Box>
           </VStack>
         </Grid>
