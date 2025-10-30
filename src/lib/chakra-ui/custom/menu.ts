@@ -8,7 +8,8 @@ const { definePartsStyle, defineMultiStyleConfig } =
 const baseStyle = definePartsStyle((props) => ({
   list: {
     py: 0,
-    bg: mode("#ffffff", "gray.900")(props),
+    bg: mode("rgba(255, 255, 255, 0.8)", "rgba(20, 20, 20, 0.8)")(props),
+    backdropFilter: "blur(10px)",
     border: "1px solid",
     borderColor: mode("gray.200", "gray.800")(props),
     p: 1,

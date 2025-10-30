@@ -9,7 +9,7 @@ export default function Layout() {
       <Box as="main">
         <TopnavBar />
 
-        <Container maxW="full" py={5} overflowX="hidden">
+        <Container maxW="full" p={0} overflowX="hidden">
           <Outlet />
         </Container>
       </Box>

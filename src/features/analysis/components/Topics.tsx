@@ -3,7 +3,6 @@ import {
   Card,
   CardBody,
   Flex,
-  Grid,
   Heading,
   IconButton,
   Image,
@@ -12,36 +11,23 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { IconBookmarkFilled, IconFlameFilled } from "@tabler/icons-react";
-import React from "react";
+import { Topic, TopicsProps } from "../utils/types";
 
-interface Topic {
-  id: string;
-  image: string;
-  title: string;
-  description: string;
-  newsCount: number;
-  type: string;
-}
-
-interface TopicsProps {
-  topics: Topic[];
-  onTopicClick?: () => void;
-}
-
-const TopicCard: React.FC<{
+const TopicCard = ({
+  topic,
+  isLarge = false,
+  onClick,
+}: {
   topic: Topic;
   isLarge?: boolean;
   onClick?: () => void;
-}> = ({ topic, isLarge = false, onClick }) => {
-  const bg = useColorModeValue("#ffffff", "#0A0A0A");
+}) => {
   const textColor = useColorModeValue("gray.900", "white");
   const descColor = useColorModeValue("gray.600", "whiteAlpha.700");
   const metaColor = useColorModeValue("gray.500", "whiteAlpha.600");
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
   const iconBg = useColorModeValue("gray.100", "whiteAlpha.200");
   const iconBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
   const iconHoverBg = useColorModeValue("gray.200", "whiteAlpha.300");
-  const hoverBg = useColorModeValue("#f9f9f9", "#111");
   const gradientBg = useColorModeValue(
     "linear(to-t, rgba(255,255,255,0.95), rgba(255,255,255,0.7), rgba(255,255,255,0.4), rgba(255,255,255,0.1), transparent)",
     "linear(to-t, rgba(10,10,10,0.95), rgba(10,10,10,0.7), rgba(10,10,10,0.4), rgba(10,10,10,0.1), transparent)",
@@ -49,33 +35,24 @@ const TopicCard: React.FC<{
 
   return (
     <Card
-      bg={bg}
-      color={textColor}
+      variant="elevated"
       overflow="hidden"
       cursor="pointer"
-      transition="all 0.3s ease"
-      _hover={{
-        transform: "translateY(-2px)",
-        shadow: "lg",
-        bg: hoverBg,
-      }}
       height="100%"
       role="group"
       position="relative"
-      border="1px solid"
-      borderColor={borderColor}
       onClick={onClick}
     >
-      <Box position="absolute" left={3} top={3} color="red.400" zIndex={2}>
-        <IconFlameFilled size={18} />
+      <Box position="absolute" left={1.5} top={1.5} color="red.400" zIndex={2}>
+        <IconFlameFilled size={12} />
       </Box>
       <IconButton
-        size="sm"
+        size="xs"
         aria-label="Bookmark"
-        icon={<IconBookmarkFilled size={16} />}
+        icon={<IconBookmarkFilled size={10} />}
         position="absolute"
-        right={3}
-        top={3}
+        right={1.5}
+        top={1.5}
         zIndex={2}
         bg={iconBg}
         backdropFilter="blur(10px)"
@@ -109,80 +86,85 @@ const TopicCard: React.FC<{
         />
       </Box>
       <CardBody
-        p={4}
+        p={2}
         position="relative"
         zIndex={1}
         display="flex"
         flexDirection="column"
         justifyContent="flex-end"
-        minHeight={isLarge ? "300px" : "220px"}
+        minHeight={isLarge ? "140px" : "140px"}
       >
-        <Flex justify="space-between" align="flex-start" mb={2}>
+        <Flex justify="space-between" align="flex-start" mb={0.5}>
           <Heading
-            size={isLarge ? "md" : "sm"}
+            size="xs"
             flex="1"
             letterSpacing="tight"
             color={textColor}
             noOfLines={2}
+            fontSize={isLarge ? "sm" : "xs"}
           >
             {topic.title}
           </Heading>
         </Flex>
         <Text
           color={descColor}
-          fontSize="sm"
-          mb={2}
-          noOfLines={isLarge ? 3 : 2}
+          fontSize="xs"
+          mb={0.5}
+          noOfLines={1}
         >
           {topic.description}
         </Text>
         <Flex justify="space-between" align="center">
-          <Text fontSize="xs" color={metaColor} fontWeight="medium">
+          <Text fontSize="2xs" color={metaColor} fontWeight="medium">
             {topic.newsCount} {topic.newsCount === 1 ? "noticia" : "noticias"}
           </Text>
-          <Text fontSize="xs" color={metaColor}>
-            13 Junio
+          <Text fontSize="2xs" color={metaColor}>
+            13 Jun
           </Text>
         </Flex>
       </CardBody>
-      <Box
-        position="absolute"
-        top="-20px"
-        right="-20px"
-        width="120px"
-        height="120px"
-        bg="whiteAlpha.100"
-        borderRadius="full"
-        filter="blur(40px)"
-      />
     </Card>
   );
 };
 
-const Topics: React.FC<TopicsProps> = ({ topics, onTopicClick }) => {
-  return (
-    <VStack align="start">
-      <Heading size="md" mb={4}>
-        Temas destacados
-      </Heading>
-      <Grid
-        templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
-        gap={3}
-        width="100%"
-      >
+const Topics = ({ topics, onTopicClick }: TopicsProps) => (
+  <VStack align="start" width="100%">
+    <Heading size="sm" mb={2}>
+      Temas destacados
+    </Heading>
+    <Box
+      width="100%"
+      overflowX="auto"
+      css={{
+        "&::-webkit-scrollbar": {
+          height: "6px",
+        },
+        "&::-webkit-scrollbar-track": {
+          background: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "rgba(255, 255, 255, 0.2)",
+          borderRadius: "3px",
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          background: "rgba(255, 255, 255, 0.3)",
+        },
+      }}
+    >
+      <Flex gap={2} pb={2}>
         {topics.length > 0 && (
-          <Box gridColumn={{ base: "span 1", md: "span 2" }}>
+          <Box minW="240px" maxW="240px" h="140px">
             <TopicCard topic={topics[0]} isLarge={true} onClick={onTopicClick} />
           </Box>
         )}
         {topics.slice(1).map((topic) => (
-          <Box key={topic.id} gridColumn="span 1">
+          <Box key={topic.id} minW="200px" maxW="200px" h="140px">
             <TopicCard topic={topic} onClick={onTopicClick} />
           </Box>
         ))}
-      </Grid>
-    </VStack>
-  );
-};
+      </Flex>
+    </Box>
+  </VStack>
+);
 
 export default Topics;

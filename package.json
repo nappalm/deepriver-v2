@@ -12,7 +12,10 @@
     "format": "prettier --write .",
     "preview": "vite preview",
     "prepare": "husky",
-    "plop": "plop --plopfile .plop/plopfile.cjs"
+    "plop": "plop --plopfile .plop/plopfile.cjs",
+    "geo:download": "node scripts/download-geo-data.js",
+    "geo:process": "node scripts/process-geo-data.js",
+    "geo:upload": "node scripts/upload-to-mapbox.js"
   },
   "dependencies": {
     "@chakra-ui/anatomy": "^2.3.4",

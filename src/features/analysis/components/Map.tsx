@@ -2,16 +2,13 @@ import {
   Box,
   Card,
   CardBody,
-  Flex,
-  Heading,
   Text,
-  VStack,
-  Badge,
   useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
-import React, { useRef, useEffect, useState } from "react";
-import MapGL, { Marker, NavigationControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import React, { useEffect, useRef, useState } from "react";
+import MapGL, { Marker, NavigationControl } from "react-map-gl";
 
 interface MapLocation {
   id: string;
@@ -41,25 +38,35 @@ const Map: React.FC<MapProps> = ({
     latitude: center.latitude,
     zoom: zoom * 0.2, // Aplicar zoom del 20%
   });
-  const [selectedLocation, setSelectedLocation] = useState<MapLocation | null>(
-    null,
-  );
-  const [hoveredLocation, setHoveredLocation] = useState<string | null>(null);
 
   const mapboxToken = import.meta.env.VITE_APP_MAPBOX_ACCESS_TOKEN;
 
-  const totalCount = locations.reduce((acc, loc) => acc + (loc.count || 0), 0);
-
-  const bg = useColorModeValue("#ffffff", "#0A0A0A");
+  const bg = useColorModeValue(
+    "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
+    "linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%)",
+  );
+  const hoverBg = useColorModeValue(
+    "linear-gradient(135deg, #fafbfc 0%, #f1f5f9 100%)",
+    "linear-gradient(135deg, #111 0%, #1f1f1f 100%)",
+  );
   const textColor = useColorModeValue("gray.900", "white");
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
   const markerBg = useColorModeValue("#ffffff", "#0A0A0A");
   const markerBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
   const markerHoverBg = useColorModeValue("#f9f9f9", "#111");
-  const markerHoverBorderColor = useColorModeValue("gray.400", "whiteAlpha.500");
-  const mapStyle = useColorModeValue("mapbox://styles/mapbox/light-v11", "mapbox://styles/mapbox/dark-v11");
+  const markerHoverBorderColor = useColorModeValue(
+    "gray.400",
+    "whiteAlpha.500",
+  );
+  const mapStyle = useColorModeValue(
+    "mapbox://styles/mapbox/light-v11",
+    "mapbox://styles/mapbox/dark-v11",
+  );
   const controlsBg = useColorModeValue("#ffffff", "#0A0A0A");
-  const controlsBorder = useColorModeValue("rgba(0,0,0,0.1)", "rgba(255, 255, 255, 0.1)");
+  const controlsBorder = useColorModeValue(
+    "rgba(0,0,0,0.1)",
+    "rgba(255, 255, 255, 0.1)",
+  );
   const controlsHoverBg = useColorModeValue("#f5f5f5", "#111");
   const controlsIconFilter = useColorModeValue("invert(0)", "invert(1)");
 
@@ -99,9 +106,17 @@ const Map: React.FC<MapProps> = ({
     return (
       <Card
         height="100%"
-        bg={bg}
+        bgGradient={bg}
         border="1px solid"
         borderColor={borderColor}
+        borderRadius="2xl"
+        boxShadow="sm"
+        transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+        _hover={{
+          bgGradient: hoverBg,
+          boxShadow: "lg",
+          borderColor: useColorModeValue("gray.300", "whiteAlpha.300"),
+        }}
       >
         <CardBody
           display="flex"
@@ -113,7 +128,10 @@ const Map: React.FC<MapProps> = ({
             <Text color={textColor} fontWeight="medium">
               Mapbox token no configurado
             </Text>
-            <Text color={useColorModeValue("gray.600", "whiteAlpha.600")} fontSize="sm">
+            <Text
+              color={useColorModeValue("gray.600", "whiteAlpha.600")}
+              fontSize="sm"
+            >
               Configura VITE_APP_MAPBOX_ACCESS_TOKEN
             </Text>
           </VStack>
@@ -126,12 +144,18 @@ const Map: React.FC<MapProps> = ({
     <Box
       overflow="hidden"
       position="relative"
-      transition="all 0.3s ease"
-      borderRadius="md"
+      transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+      borderRadius="2xl"
       height="100%"
-      bg={bg}
+      bgGradient={bg}
       border="1px solid"
       borderColor={borderColor}
+      boxShadow="sm"
+      _hover={{
+        bgGradient: hoverBg,
+        boxShadow: "lg",
+        borderColor: useColorModeValue("gray.300", "whiteAlpha.300"),
+      }}
     >
       <Box
         height="100%"
@@ -143,25 +167,33 @@ const Map: React.FC<MapProps> = ({
           },
           ".mapboxgl-ctrl-group": {
             background: `${controlsBg} !important`,
-            border: `1px solid ${controlsBorder} !important`,
-            borderRadius: "6px !important",
-            boxShadow: "none !important",
+            border: `2px solid ${controlsBorder} !important`,
+            borderRadius: "12px !important",
+            boxShadow: useColorModeValue(
+              "0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06) !important",
+              "0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3) !important",
+            ),
+            backdropFilter: "blur(10px) !important",
+            overflow: "hidden !important",
           },
           ".mapboxgl-ctrl-group button": {
             background: `${controlsBg} !important`,
             border: "none !important",
-            width: "32px !important",
-            height: "32px !important",
+            width: "36px !important",
+            height: "36px !important",
+            transition: "all 0.2s ease !important",
           },
           ".mapboxgl-ctrl-group button + button": {
             borderTop: `1px solid ${controlsBorder} !important`,
           },
           ".mapboxgl-ctrl-group button:hover": {
             background: `${controlsHoverBg} !important`,
+            transform: "scale(1.05) !important",
           },
           ".mapboxgl-ctrl-icon": {
             filter: `${controlsIconFilter} !important`,
             opacity: "0.7 !important",
+            transition: "opacity 0.2s ease !important",
           },
           ".mapboxgl-ctrl-group button:hover .mapboxgl-ctrl-icon": {
             opacity: "1 !important",
@@ -174,7 +206,12 @@ const Map: React.FC<MapProps> = ({
           onMove={(evt) => setViewState(evt.viewState)}
           mapboxAccessToken={mapboxToken}
           mapStyle={mapStyle}
-          style={{ width: "100%", height: "100%", backgroundColor: bg }}
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: useColorModeValue("#ffffff", "#0A0A0A"),
+            borderRadius: "1.5rem",
+          }}
           scrollZoom={false}
           doubleClickZoom={false}
           attributionControl={false}
@@ -196,53 +233,72 @@ const Map: React.FC<MapProps> = ({
               latitude={location.latitude}
               anchor="bottom"
             >
-              <Box position="relative" transition="all 0.3s ease">
+              <Box
+                position="relative"
+                transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+              >
                 <Box
                   bg={markerBg}
                   color={textColor}
-                  borderRadius="md"
-                  width="36px"
-                  height="36px"
+                  borderRadius="lg"
+                  width="40px"
+                  height="40px"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
                   fontWeight="bold"
-                  fontSize="xs"
-                  border="1px solid"
+                  fontSize="sm"
+                  border="2px solid"
                   borderColor={markerBorderColor}
                   position="relative"
-                  backdropFilter="blur(10px)"
-                  boxShadow={useColorModeValue("0 4px 12px rgba(0, 0, 0, 0.1)", "0 4px 12px rgba(0, 0, 0, 0.5)")}
+                  backdropFilter="blur(20px)"
+                  boxShadow={useColorModeValue(
+                    "0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)",
+                    "0 4px 16px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4)",
+                  )}
+                  transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                  cursor="pointer"
                   _hover={{
                     bg: markerHoverBg,
                     borderColor: markerHoverBorderColor,
+                    transform: "scale(1.1) translateY(-2px)",
+                    boxShadow: useColorModeValue(
+                      "0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1)",
+                      "0 8px 24px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.5)",
+                    ),
                   }}
                 >
                   {location.count || 1}
                 </Box>
                 <Box
                   position="absolute"
-                  bottom="-6px"
+                  bottom="-8px"
                   left="50%"
                   transform="translateX(-50%)"
                   width="0"
                   height="0"
-                  borderLeft="6px solid transparent"
-                  borderRight="6px solid transparent"
-                  borderTop="6px solid"
+                  borderLeft="8px solid transparent"
+                  borderRight="8px solid transparent"
+                  borderTop="8px solid"
                   borderTopColor={markerBg}
-                  filter={useColorModeValue("drop-shadow(0 2px 4px rgba(0,0,0,0.1))", "drop-shadow(0 2px 4px rgba(0,0,0,0.5))")}
+                  filter={useColorModeValue(
+                    "drop-shadow(0 2px 6px rgba(0,0,0,0.12))",
+                    "drop-shadow(0 2px 6px rgba(0,0,0,0.6))",
+                  )}
                 />
                 {/* Blur decorativo */}
                 <Box
                   position="absolute"
-                  top="-10px"
-                  right="-10px"
-                  width="40px"
-                  height="40px"
-                  bg="whiteAlpha.100"
+                  top="-15px"
+                  right="-15px"
+                  width="50px"
+                  height="50px"
+                  bgGradient={useColorModeValue(
+                    "radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)",
+                  )}
                   borderRadius="full"
-                  filter="blur(15px)"
+                  filter="blur(20px)"
                   zIndex={-1}
                 />
               </Box>
@@ -251,27 +307,45 @@ const Map: React.FC<MapProps> = ({
         </MapGL>
       </Box>
 
-      {/* Bento overlay effect */}
+      {/* Elementos decorativos */}
       <Box
         position="absolute"
         top={0}
         left={0}
         right={0}
         bottom={0}
-        bgGradient="radial(circle at 20% 30%, rgba(139, 92, 246, 0.2), transparent 40%), radial(circle at 80% 70%, rgba(59, 130, 246, 0.15), transparent 40%)"
+        bgGradient="radial(circle at 20% 30%, rgba(59, 130, 246, 0.15), transparent 50%), radial(circle at 80% 70%, rgba(96, 165, 250, 0.12), transparent 50%)"
         pointerEvents="none"
         zIndex={1}
       />
 
       <Box
         position="absolute"
-        top="-20px"
-        right="-20px"
-        width="120px"
-        height="120px"
-        bg="whiteAlpha.100"
+        top="-30px"
+        right="-30px"
+        width="150px"
+        height="150px"
+        bgGradient={useColorModeValue(
+          "radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)",
+          "radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%)",
+        )}
+        borderRadius="full"
+        filter="blur(50px)"
+        pointerEvents="none"
+      />
+      <Box
+        position="absolute"
+        bottom="-20px"
+        left="-20px"
+        width="100px"
+        height="100px"
+        bgGradient={useColorModeValue(
+          "radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%)",
+          "radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%)",
+        )}
         borderRadius="full"
         filter="blur(40px)"
+        pointerEvents="none"
       />
     </Box>
   );

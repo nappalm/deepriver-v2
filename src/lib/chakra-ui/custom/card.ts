@@ -49,10 +49,43 @@ const outlineVariant = definePartsStyle((props) => ({
   },
 }));
 
+const elevatedVariant = definePartsStyle((props) => ({
+  container: {
+    bg: mode("gray.50", "#0A0A0A")(props),
+    overflow: "hidden",
+    position: "relative",
+    transition: "all 0.3s ease",
+    borderWidth: "1px",
+    borderColor: mode("gray.200", "whiteAlpha.200")(props),
+    shadow: "sm",
+    _hover: {
+      transform: "translateY(-2px)",
+      shadow: "lg",
+      bg: mode("#f9f9f9", "#111")(props),
+    },
+    _before: {
+      content: '""',
+      position: "absolute",
+      top: "-10px",
+      right: "-10px",
+      width: "60px",
+      height: "60px",
+      bg: mode("blackAlpha.100", "whiteAlpha.100")(props),
+      borderRadius: "full",
+      filter: "blur(20px)",
+      pointerEvents: "none",
+    },
+  },
+  body: {
+    bg: "transparent",
+  },
+}));
+
 const sizes = {};
 const variants = {
   solid: solidVariant,
   outline: outlineVariant,
+  elevated: elevatedVariant,
 };
 
 export default defineMultiStyleConfig({
@@ -60,6 +93,6 @@ export default defineMultiStyleConfig({
   sizes,
   variants,
   defaultProps: {
-    variant: "outline",
+    variant: "elevated",
   },
 });

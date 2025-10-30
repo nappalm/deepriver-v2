@@ -1,5 +1,11 @@
-import { Box, Card, CardBody, Heading, Text, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
+import {
+  Box,
+  Card,
+  CardBody,
+  Heading,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import {
   Area,
   AreaChart,
@@ -9,41 +15,43 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-interface ChartDataPoint {
-  name: string;
-  value: number;
-  date?: string;
-}
-
-interface ChartProps {
-  data: ChartDataPoint[];
-  title?: string;
-  color?: string;
-  showArea?: boolean;
-}
+import { ChartProps } from "../utils/types";
 
 const CustomTooltip = ({ active, payload, label }: any) => {
-  const tooltipBg = useColorModeValue("#ffffff", "#0A0A0A");
-  const tooltipBorderColor = useColorModeValue("gray.200", "whiteAlpha.200");
+  const tooltipBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.95)",
+    "rgba(10, 10, 10, 0.95)",
+  );
+  const tooltipBorderColor = useColorModeValue("gray.300", "whiteAlpha.300");
   const tooltipTextColor = useColorModeValue("gray.900", "white");
   const tooltipDescColor = useColorModeValue("gray.600", "whiteAlpha.700");
+  const accentColor = useColorModeValue("#3b82f6", "#60a5fa");
 
   if (active && payload && payload.length) {
     return (
       <Box
         bg={tooltipBg}
-        border="1px solid"
+        border="2px solid"
         borderColor={tooltipBorderColor}
         p={3}
-        borderRadius="md"
-        backdropFilter="blur(10px)"
+        borderRadius="xl"
+        backdropFilter="blur(20px)"
+        boxShadow="xl"
       >
-        <Text color={tooltipTextColor} fontSize="sm" fontWeight="bold" mb={1}>
+        <Text
+          color={tooltipTextColor}
+          fontSize="xs"
+          fontWeight="semibold"
+          mb={1}
+          letterSpacing="wide"
+        >
           {label}
         </Text>
-        <Text color={tooltipDescColor} fontSize="sm">
-          {payload[0].value.toLocaleString()} eventos
+        <Text color={accentColor} fontSize="lg" fontWeight="bold">
+          {payload[0].value.toLocaleString()}
+        </Text>
+        <Text color={tooltipDescColor} fontSize="xs" mt={0.5}>
+          eventos
         </Text>
       </Box>
     );
@@ -51,84 +59,93 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const Chart: React.FC<ChartProps> = ({
+const Chart = ({
   data,
   title = "Actividad Reciente",
   color = "#8b5cf6",
-  showArea = true,
-}) => {
-  const totalValue = data.reduce((acc, item) => acc + item.value, 0);
-  const avgValue = Math.round(totalValue / data.length);
-  const maxValue = Math.max(...data.map((item) => item.value));
-
-  const bg = useColorModeValue("#ffffff", "#0A0A0A");
+}: ChartProps) => {
   const textColor = useColorModeValue("gray.900", "white");
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.200");
-  const gridColor = useColorModeValue("rgba(0,0,0,0.05)", "rgba(255,255,255,0.05)");
-  const axisColor = useColorModeValue("rgba(0,0,0,0.3)", "rgba(255,255,255,0.3)");
-  const tickColor = useColorModeValue("rgba(0,0,0,0.5)", "rgba(255,255,255,0.5)");
+  const gridColor = useColorModeValue(
+    "rgba(0,0,0,0.04)",
+    "rgba(255,255,255,0.04)",
+  );
+  const axisColor = useColorModeValue(
+    "rgba(0,0,0,0.2)",
+    "rgba(255,255,255,0.2)",
+  );
+  const tickColor = useColorModeValue(
+    "rgba(0,0,0,0.6)",
+    "rgba(255,255,255,0.6)",
+  );
 
   return (
-    <Card
-      bg={bg}
-      color={textColor}
-      overflow="hidden"
-      position="relative"
-      border="1px solid"
-      borderColor={borderColor}
-      height="100%"
-    >
+    <Card variant="elevated" height="100%">
       <CardBody p={4}>
-        <Heading size="sm" mb={3}>
+        <Heading
+          size="xs"
+          mb={3}
+          fontWeight="semibold"
+          letterSpacing="tight"
+          color={textColor}
+          textTransform="capitalize"
+        >
           {title}
         </Heading>
 
-        <Box height="120px" width="100%">
+        <Box height="80px" width="100%" position="relative">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={color} stopOpacity={0.6} />
-                  <stop offset="95%" stopColor={color} stopOpacity={0.05} />
+                  <stop offset="0%" stopColor={color} stopOpacity={0.8} />
+                  <stop offset="50%" stopColor={color} stopOpacity={0.4} />
+                  <stop offset="100%" stopColor={color} stopOpacity={0.05} />
                 </linearGradient>
               </defs>
               <CartesianGrid
-                strokeDasharray="3 3"
+                strokeDasharray="4 4"
                 stroke={gridColor}
                 vertical={false}
+                strokeOpacity={0.5}
               />
               <XAxis
                 dataKey="name"
                 stroke={axisColor}
-                tick={{ fill: tickColor, fontSize: 10 }}
+                tick={{ fill: tickColor, fontSize: 9, fontWeight: 500 }}
                 axisLine={false}
                 tickLine={false}
+                tickMargin={8}
               />
               <YAxis hide />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={{
+                  stroke: color,
+                  strokeWidth: 2,
+                  strokeDasharray: "5 5",
+                  strokeOpacity: 0.5,
+                }}
+              />
               <Area
                 type="monotone"
                 dataKey="value"
                 stroke={color}
-                strokeWidth={2}
+                strokeWidth={3}
                 fill="url(#colorValue)"
-                animationDuration={1000}
+                animationDuration={1500}
+                animationEasing="ease-in-out"
+                dot={false}
+                activeDot={{
+                  r: 5,
+                  stroke: color,
+                  strokeWidth: 2,
+                  fill: useColorModeValue("#ffffff", "#0A0A0A"),
+                }}
               />
             </AreaChart>
           </ResponsiveContainer>
         </Box>
       </CardBody>
-
-      <Box
-        position="absolute"
-        top="-20px"
-        right="-20px"
-        width="120px"
-        height="120px"
-        bg="whiteAlpha.100"
-        borderRadius="full"
-        filter="blur(40px)"
-      />
     </Card>
   );
 };

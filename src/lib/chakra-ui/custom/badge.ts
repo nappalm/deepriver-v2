@@ -3,7 +3,7 @@ import {
   defineStyle,
   defineStyleConfig,
 } from "@chakra-ui/styled-system";
-import { transparentize } from "@chakra-ui/theme-tools";
+import { mode, transparentize } from "@chakra-ui/theme-tools";
 
 const vars = defineCssVars("badge", ["bg", "color", "shadow"]);
 
@@ -56,10 +56,22 @@ const variantOutline = defineStyle((props) => {
   };
 });
 
+const variantBordered = defineStyle((props) => ({
+  [vars.bg.variable]: mode("colors.gray.100", "colors.whiteAlpha.200")(props),
+  [vars.color.variable]: mode("colors.gray.900", "colors.white")(props),
+  borderWidth: "1px",
+  borderColor: mode("gray.300", "whiteAlpha.300")(props),
+  textTransform: "none",
+  fontSize: "2xs",
+  px: 1.5,
+  py: 0.5,
+}));
+
 const variants = {
   solid: variantSolid,
   subtle: variantSubtle,
   outline: variantOutline,
+  bordered: variantBordered,
 };
 
 const badgeTheme = defineStyleConfig({
