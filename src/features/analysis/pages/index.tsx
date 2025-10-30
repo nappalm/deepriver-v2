@@ -15,19 +15,19 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import {
-  IconBookmark,
-  IconBookmarkFilled,
   IconFileExcel,
   IconPackageExport,
   IconPdf,
   IconShare,
 } from "@tabler/icons-react";
+import BookmarksMenu from "../components/BookmarksMenu";
 import Chart from "../components/Chart";
 import FilterInLine from "../components/FilterInLine";
 import Map from "../components/Map";
 import Metrics from "../components/Metrics";
 import News from "../components/News";
 import Topics from "../components/Topics";
+import ShareModal from "../components/ExportModal";
 
 export default function Analysis() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -435,7 +435,7 @@ export default function Analysis() {
     documents: 1250,
     likes: 3480,
     authors: 45,
-    valuationMXN: 15000000,
+    valuationMXN: 15,
   };
 
   // Datos de ejemplo para Map - Distribuidos por México
@@ -568,30 +568,13 @@ export default function Analysis() {
             </Box>
           </HStack>
           <HStack gap={2}>
-            <IconButton
-              size="sm"
-              aria-label="Share"
-              icon={<IconBookmark size={16} />}
-            />
-
+            <BookmarksMenu />
             <IconButton
               size="sm"
               aria-label="Share"
               icon={<IconShare size={16} />}
             />
-            <Menu>
-              <MenuButton
-                size="sm"
-                as={Button}
-                leftIcon={<IconPackageExport size={16} />}
-              >
-                Exportar
-              </MenuButton>
-              <MenuList>
-                <MenuItem icon={<IconFileExcel size={16} />}>Excel</MenuItem>
-                <MenuItem icon={<IconPdf size={16} />}>PDF</MenuItem>
-              </MenuList>
-            </Menu>
+            <ShareModal />
           </HStack>
         </HStack>
       </Container>

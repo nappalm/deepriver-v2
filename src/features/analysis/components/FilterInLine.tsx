@@ -1,25 +1,19 @@
 import {
   Box,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Tag,
-  TagLabel,
-  TagCloseButton,
+  Button,
   Flex,
+  Input,
   List,
   ListItem,
+  Portal,
+  Tag,
+  TagCloseButton,
+  TagLabel,
   Text,
   useColorModeValue,
-  Portal,
-  Button,
 } from "@chakra-ui/react";
-import {
-  IconSearch,
-  IconDeviceFloppy,
-  IconBookmarkFilled,
-} from "@tabler/icons-react";
-import React, { useState, useRef, useEffect } from "react";
+import { IconBookmarkFilled, IconSearch } from "@tabler/icons-react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 interface FilterToken {
   key: string;
@@ -32,6 +26,8 @@ interface FilterOption {
   label: string;
   description: string;
   values?: string[];
+  subValues?: Record<string, string[]>; // Para subtipos basados en tipo
+  disabled?: boolean;
 }
 
 interface FilterInLineProps {
@@ -68,59 +64,116 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
   const tagBg = useColorModeValue("blue.50", "blue.900");
   const tagColor = useColorModeValue("blue.700", "blue.100");
 
-  // Opciones de filtros disponibles
-  const filterOptions: FilterOption[] = [
-    {
-      key: "tipo",
-      label: "Tipo de evento",
-      description: "Filtra por tipo de evento",
-      values: [
-        "Gobierno",
-        "Economía",
-        "Educación",
-        "Salud",
-        "Seguridad",
-        "Cultura",
-        "Tecnología",
-        "Infraestructura",
-        "Ecología",
-      ],
-    },
-    {
-      key: "nivel",
-      label: "Nivel",
-      description: "Filtra por nivel geográfico",
-      values: ["Nacional", "Estatal", "Municipal", "Local"],
-    },
-    {
-      key: "fecha",
-      label: "Rango de tiempo",
-      description: "Filtra por rango de tiempo",
-      values: ["Un día", "Una semana", "Un mes", "Un año"],
-    },
-    {
-      key: "noticia",
-      label: "Tipo de noticia",
-      description: "Filtra por tipo de noticia",
-      values: ["Artículo", "Twitter", "Facebook", "Web"],
-    },
-    {
-      key: "mapa",
-      label: "Filtros de mapa",
-      description: "Filtra elementos del mapa",
-      values: ["Filtro geográfico", "Eventos", "Fuentes"],
-    },
-    {
-      key: "fuentes",
-      label: "Fuentes",
-      description: "Filtra por fuentes específicas",
-    },
-    {
-      key: "buscar",
-      label: "Búsqueda",
-      description: "Búsqueda de texto libre",
-    },
-  ];
+  // Obtener el tipo seleccionado de los filtros actuales
+  const getSelectedTipo = (): string | null => {
+    const tipoFilter = filters.find((f) => f.key === "tipo");
+    return tipoFilter ? tipoFilter.value : null;
+  };
+
+  // Opciones de filtros disponibles (calculado con useMemo para actualizar cuando cambien los filtros)
+  const filterOptions: FilterOption[] = useMemo(() => {
+    const selectedTipo = getSelectedTipo();
+
+    return [
+      {
+        key: "tipo",
+        label: "Tipo",
+        description: "Filtra por tipo principal",
+        values: [
+          "Gobierno",
+          "Economía",
+          "Educación",
+          "Salud",
+          "Seguridad",
+          "Cultura",
+          "Tecnología",
+          "Infraestructura",
+          "Ecología",
+        ],
+      },
+      {
+        key: "subtipo",
+        label: "Subtipo",
+        description: selectedTipo
+          ? `Filtra por subtipo de ${selectedTipo}`
+          : "Filtra por subtipo (requiere seleccionar un tipo primero)",
+        disabled: !selectedTipo,
+        subValues: {
+          Gobierno: [
+            "Federal",
+            "Estatal",
+            "Municipal",
+            "Legislativo",
+            "Judicial",
+          ],
+          Economía: [
+            "Finanzas",
+            "Comercio",
+            "Inversión",
+            "Empleo",
+            "Impuestos",
+          ],
+          Educación: ["Básica", "Media Superior", "Superior", "Investigación"],
+          Salud: ["Hospitales", "Prevención", "Epidemiología", "Servicios"],
+          Seguridad: ["Policía", "Ejército", "Protección Civil", "Justicia"],
+          Cultura: ["Arte", "Patrimonio", "Festivales", "Museos"],
+          Tecnología: [
+            "Innovación",
+            "Telecomunicaciones",
+            "Software",
+            "Hardware",
+          ],
+          Infraestructura: ["Transporte", "Energía", "Agua", "Urbanismo"],
+          Ecología: [
+            "Conservación",
+            "Contaminación",
+            "Recursos Naturales",
+            "Cambio Climático",
+          ],
+        },
+      },
+      {
+        key: "nivel",
+        label: "Nivel",
+        description: "Filtra por nivel geográfico",
+        values: ["Internacional", "Nacional", "Estatal", "Local"],
+      },
+      {
+        key: "fecha",
+        label: "Rango de tiempo",
+        description: "Filtra por rango de tiempo",
+        values: ["Un día", "Una semana", "Un mes", "Un año"],
+      },
+      {
+        key: "ordenar",
+        label: "Ordenar por",
+        description: "Ordena los resultados",
+        values: ["Fecha", "Impacto", "Noticias", "Likes"],
+      },
+      {
+        key: "noticia",
+        label: "Tipo de noticia",
+        description: "Filtra por tipo de noticia",
+        values: ["Todos", "Artículo", "Twitter", "Facebook", "Web"],
+      },
+      {
+        key: "mapa",
+        label: "Filtros de mapa",
+        description: "Filtra elementos del mapa",
+        values: ["Filtro geográfico", "Eventos", "Fuentes"],
+      },
+      {
+        key: "fuentes",
+        label: "Fuentes",
+        description: "Filtra por fuentes específicas",
+      },
+      {
+        key: "buscar",
+        label: "Búsqueda",
+        description: "Búsqueda de texto libre",
+      },
+    ];
+  }, [filters]);
 
   // Manejar clicks fuera del componente
   useEffect(() => {
@@ -152,8 +205,9 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
       const filteredOptions = filterOptions
         .filter(
           (option) =>
-            option.key.includes(trimmedInput) ||
-            option.label.toLowerCase().includes(trimmedInput),
+            !option.disabled && // No mostrar opciones deshabilitadas
+            (option.key.includes(trimmedInput) ||
+              option.label.toLowerCase().includes(trimmedInput)),
         )
         .map((option) => ({ type: "filter" as const, data: option }));
 
@@ -169,6 +223,27 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
     const selectedOption = filterOptions.find(
       (opt) => opt.key === selectedFilterKey,
     );
+
+    // Manejar subtipos basados en el tipo seleccionado
+    if (selectedOption?.key === "subtipo" && selectedOption.subValues) {
+      const selectedTipo = getSelectedTipo();
+      if (!selectedTipo) {
+        return []; // No mostrar subtipos si no hay tipo seleccionado
+      }
+
+      const subtiposDisponibles = selectedOption.subValues[selectedTipo] || [];
+      const colonIndex = trimmedInput.lastIndexOf(":");
+      const searchValue =
+        colonIndex !== -1
+          ? trimmedInput.substring(colonIndex + 1).trim()
+          : trimmedInput;
+
+      return subtiposDisponibles
+        .filter((value) => value.toLowerCase().includes(searchValue))
+        .map((value) => ({ type: "value" as const, data: value }));
+    }
+
+    // Manejar valores normales
     if (selectedOption?.values) {
       // Extraer solo el valor después del ":"
       const colonIndex = trimmedInput.lastIndexOf(":");
@@ -240,7 +315,14 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
   };
 
   const removeFilter = (index: number) => {
-    const newFilters = filters.filter((_, i) => i !== index);
+    const filterToRemove = filters[index];
+    let newFilters = filters.filter((_, i) => i !== index);
+
+    // Si se elimina un filtro de tipo, también eliminar los subtipos asociados
+    if (filterToRemove.key === "tipo") {
+      newFilters = newFilters.filter((f) => f.key !== "subtipo");
+    }
+
     setFilters(newFilters);
     onFiltersChange?.(newFilters);
   };
@@ -392,6 +474,7 @@ const FilterInLine: React.FC<FilterInLineProps> = ({
         {filters.length > 0 && (
           <Button
             size="sm"
+            colorScheme="blue"
             leftIcon={<IconBookmarkFilled size={16} />}
             onClick={(e) => {
               e.stopPropagation();
